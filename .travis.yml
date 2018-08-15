@@ -1,4 +1,7 @@
 language: ruby
 script: bundle exec rspec
 rvm:
- - 2.5.1
+- 2.5.1
+notifications:
+  slack:
+    secure: ll7aNL3ok5iolou/iAeMgee2FZBDbj60f5gaeEH3mwag+xDE3E5Zo4d8cqCtZmJB4JGIfBiiTTw7OJfauqe/N/9JAJe7Om0vMrQylL15BmD5A+en6lAuDK7QHZkgj50LV9sVfPvMG1wpsE1BziY0wddGS5rNQR8FTCZG2ueVUGT6pwURA/Avtw4OopsHIocDu5XZnqeflKW2Vl985b920/+QkLRl7dWPmAdEKiloSV5uug0Tf24Y0GSGOdtI644IQp9u6EVp0BjjGRwe5FY43EDqhb0vM+CMKLqxia1/BI2MKUzI2aaAFcf0VKkfJS/92hrRb/E6t/WHE6B+aNpvov5lZpAYkAFxqqxZTp/LHgY362sro0190pId3GoxweCFUCOVYwJFwW+dvW/dKAAGKJOs6N0VLzwOrRD7qn1a2vBuZPE9fs9AFj5kBP5LvDG3Yyn1D+hA7w65YOtf702TT6gX9vSH9VUbQDFQ2x0+DYEZh+2NIwbBcCHaApwoZzbdnospaLNjuFJKpzgZ4VdS8VsdKUNXlohFRaaz3yYuh5VaLEhSdbXtX7yayyKOm6DjtwVGZInq5NK7M/SWcdEX+I/fEbUu/NjjRUQQtL5Bcefn0lcGeqFxQYpo+zturN3iRCrfbScx9HuMDoq479OkRqci9szlk+sl3D7bnI3qGWo=
