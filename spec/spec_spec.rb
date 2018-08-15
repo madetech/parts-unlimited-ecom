@@ -1,7 +1,7 @@
-describe 'a failing test' do
+describe 'a passing test' do
 
-  it 'can fail' do
-    expect(1).to eq(2)
+  it 'can pass' do
+    expect(1).to eq(1)
   end
-  
+
 end
