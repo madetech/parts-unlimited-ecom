@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Customer
   extend Forwardable
   def_delegator :@shipping_address, :address_line1, :shipping_address_line1
@@ -14,7 +16,6 @@ class Customer
   def_delegator :@billing_address, :postcode, :billing_postcode
   def_delegator :@billing_address, :phone_number, :billing_phone_number
   def_delegator :@billing_address, :email_address, :billing_email_address
-
 
   attr_accessor :customer_name,
                 :shipping_address,
