@@ -2,8 +2,8 @@
 
 describe SaveCustomerDetails do
   it 'uses the customer gateway to save customer details' do
-    s = spy
-    use_case = described_class.new(customer_gateway: s)
+    customer_gateway = spy
+    use_case = described_class.new(customer_gateway: customer_gateway)
     use_case.execute(customer_details: {
                        customer_name: 'Paul',
                        shipping_address_line1: '137 Southwark Street',
@@ -22,7 +22,7 @@ describe SaveCustomerDetails do
                        billing_email_address: 'paul@gmail.com'
                      })
 
-    expect(s).to have_received(:save) do |customer|
+    expect(customer_gateway).to have_received(:save) do |customer|
       expect(customer.customer_name).to eq('Paul')
       expect(customer.shipping_address_line1).to eq('137 Southwark Street')
       expect(customer.shipping_address_line2).to eq('Northwark')
