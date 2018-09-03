@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Address
   attr_accessor :address_line1,
                 :address_line2,

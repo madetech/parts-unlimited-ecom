@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Builder
   class Customer
     attr_accessor :customer_details,
@@ -25,9 +27,9 @@ module Builder
       customer.billing_address = build_billing_address
       customer
     end
-    
+
     private
-    
+
     def build_shipping_address
       shipping_address = ::Address.new
       shipping_address.address_line1 = customer_details[:shipping_address_line1]
@@ -39,7 +41,7 @@ module Builder
       shipping_address.email_address = customer_details[:shipping_email_address]
       shipping_address
     end
-    
+
     def build_billing_address
       billing_address = ::Address.new
       billing_address.address_line1 = customer_details[:billing_address_line1]

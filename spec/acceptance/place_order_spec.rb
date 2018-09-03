@@ -46,4 +46,46 @@ describe 'place order' do
       expect(customer.billing_email_address).to eq('barry@gmail.com')
     end
   end
+
+  context('given invalid customer details') do
+    it 'responds with a validation error' do
+      customer_details = {
+        customer_name: '',
+        shipping_address_line1: '',
+        shipping_address_line2: 'Hey',
+        shipping_city: '',
+        shipping_county: '',
+        shipping_postcode: 'S2E1 0SW',
+        shipping_phone_number: '07912345671765',
+        shipping_email_address: 'barrygmail.com',
+        billing_address_line1: '',
+        billing_address_line2: 'Southwark',
+        billing_city: '',
+        billing_county: '',
+        billing_postcode: '111 0SW',
+        billing_phone_number: '079a1345671',
+        billing_email_address: '@gmail.com'
+      }
+      save_customer_details = SaveCustomerDetails.new(customer_gateway: file_customer_gateway)
+      response = save_customer_details.execute(customer_details: customer_details)
+      expect(response).to(
+        eq(
+          successful: false,
+          errors: %i[
+            missing_customer_name
+            missing_shipping_address_line1
+            missing_shipping_city
+            missing_shipping_county
+            missing_billing_address_line1
+            missing_billing_city
+            missing_billing_county
+            invalid_shipping_phone
+            invalid_billing_phone
+            invalid_shipping_postcode
+            invalid_billing_postcode
+            invalid_shipping_email
+            invalid_billing_email
+          ]))
+    end
+  end
 end
