@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 describe SaveCustomerDetails do
+
+  let(:customer_gateway) { spy }
+  let(:use_case) do
+    described_class.new(customer_gateway: customer_gateway)
+  end 
+
   it 'uses the customer gateway to save customer details' do
-    customer_gateway = spy
-    use_case = described_class.new(customer_gateway: customer_gateway)
     use_case.execute(customer_details: {
                        customer_name: 'Paul',
                        shipping_address_line1: '137 Southwark Street',
@@ -40,4 +44,27 @@ describe SaveCustomerDetails do
       expect(customer.billing_email_address).to eq('paul@gmail.com')
     end
   end
+
+  context 'validate customer details' do 
+    it 'can return success for valid details' do
+      response = use_case.execute(customer_details: {
+                       customer_name: 'Harry',
+                       shipping_address_line1: '13 South Street',
+                       shipping_address_line2: 'Borough',
+                       shipping_city: 'Fake',
+                       shipping_county: 'Manchester',
+                       shipping_postcode: 'N21 0SW',
+                       shipping_phone_number: '07912456672',
+                       shipping_email_address: 'harry@gmail.com',
+                       billing_address_line1: '13 South Street',
+                       billing_address_line2: 'Borough',
+                       billing_city: 'Fake',
+                       billing_county: 'Manchester',
+                       billing_postcode: 'N21 0SW',
+                       billing_phone_number: '07912456672',
+                       billing_email_address: 'harry@gmail.com'
+                     })
+      expect(response).to eq({successful: true, errors: []})
+    end 
+  end 
 end
