@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'builder/customer'
+require 'domain/address'
+require 'domain/customer'
 require 'use_cases/save_customer_details'
 require 'file_customer_gateway'
 
