@@ -5,6 +5,10 @@ require 'domain/address'
 require 'domain/customer'
 require 'use_cases/save_customer_details'
 require 'file_customer_gateway'
+require 'rspec'
+require 'capybara/rspec'
+require 'capybara/dsl'
+require 'index'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

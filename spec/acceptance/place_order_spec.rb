@@ -78,15 +78,17 @@ describe 'place order' do
             missing_billing_address_line1
             missing_billing_city
             missing_billing_county
-            invalid_shipping_phone
-            invalid_billing_phone
+            invalid_shipping_phone_number
+            invalid_billing_phone_number
             invalid_shipping_postcode
             invalid_billing_postcode
-            invalid_shipping_email
-            invalid_billing_email
+            invalid_shipping_email_address
+            invalid_billing_email_address
           ]
         )
       )
     end
   end
 end
+
+
