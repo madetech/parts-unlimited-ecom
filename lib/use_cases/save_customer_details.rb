@@ -7,11 +7,8 @@ class SaveCustomerDetails
 
   def execute(customer_details:)
     @customer_details = customer_details
-    errors = check_for_missing_fields
-    errors.push(check_phone_numbers)
-    errors.push(check_postcodes)
-    errors.push(check_emails)
-    errors.flatten!
+
+    errors = validate_details
 
     return { successful: false, errors: errors } unless errors.empty?
 
@@ -24,6 +21,14 @@ class SaveCustomerDetails
   end
 
   private
+
+  def validate_details
+    errors = check_for_missing_fields
+    errors.push(check_phone_numbers)
+    errors.push(check_postcodes)
+    errors.push(check_emails)
+    errors.flatten!
+  end
 
   def check_for_missing_fields
     errors = []

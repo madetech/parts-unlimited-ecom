@@ -4,6 +4,7 @@ require 'json'
 
 describe 'place order' do
   let(:file_customer_gateway) { FileCustomerGateway.new }
+  let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: file_customer_gateway) }
 
   context 'given valid customer details' do
     it 'stores the customer details' do
@@ -25,7 +26,6 @@ describe 'place order' do
         billing_email_address: 'barry@gmail.com'
       }
 
-      save_customer_details = SaveCustomerDetails.new(customer_gateway: file_customer_gateway)
       save_customer_details.execute(customer_details: customer_details)
 
       customer = file_customer_gateway.all.first
@@ -66,7 +66,6 @@ describe 'place order' do
         billing_phone_number: '079a1345671',
         billing_email_address: '@gmail.com'
       }
-      save_customer_details = SaveCustomerDetails.new(customer_gateway: file_customer_gateway)
       response = save_customer_details.execute(customer_details: customer_details)
       expect(response).to(
         eq(
@@ -85,7 +84,9 @@ describe 'place order' do
             invalid_billing_postcode
             invalid_shipping_email
             invalid_billing_email
-          ]))
+          ]
+        )
+      )
     end
   end
 end
