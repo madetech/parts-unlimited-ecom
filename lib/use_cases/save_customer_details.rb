@@ -42,8 +42,8 @@ class SaveCustomerDetails
 
   def check_phone_numbers
     errors = []
-    errors.push(:invalid_shipping_phone) unless shipping_phone_number_valid?
-    errors.push(:invalid_billing_phone) unless billing_phone_number_valid?
+    errors.push(:invalid_shipping_phone_number) unless shipping_phone_number_valid?
+    errors.push(:invalid_billing_phone_number) unless billing_phone_number_valid?
     errors
   end
 
@@ -80,8 +80,8 @@ class SaveCustomerDetails
 
   def check_emails
     errors = []
-    errors.push(:invalid_shipping_email) unless shipping_email_valid?
-    errors.push(:invalid_billing_email) unless billing_email_valid?
+    errors.push(:invalid_shipping_email_address) unless shipping_email_valid?
+    errors.push(:invalid_billing_email_address) unless billing_email_valid?
     errors
   end
 

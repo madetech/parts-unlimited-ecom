@@ -189,7 +189,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: '07912456672',
                                     billing_email_address: 'harry@gmail.com'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_shipping_phone])
+      expect(response).to eq(successful: false, errors: [:invalid_shipping_phone_number])
     end
 
     it 'can return an error for shipping phone number outside of length 11-13' do
@@ -210,7 +210,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: '07912456672',
                                     billing_email_address: 'harry@gmail.com'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_shipping_phone])
+      expect(response).to eq(successful: false, errors: [:invalid_shipping_phone_number])
     end
     it 'can return an error for billing phone number with character' do
       response = use_case.execute(customer_details: {
@@ -230,7 +230,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: 'a7912456672',
                                     billing_email_address: 'harry@gmail.com'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_billing_phone])
+      expect(response).to eq(successful: false, errors: [:invalid_billing_phone_number])
     end
 
     it 'can return an error for billing phone number outside of length 11-13' do
@@ -251,7 +251,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: '07912456672112',
                                     billing_email_address: 'harry@gmail.com'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_billing_phone])
+      expect(response).to eq(successful: false, errors: [:invalid_billing_phone_number])
     end
 
     it 'can return an error for invalid shipping postcode' do
@@ -314,7 +314,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: '079124566721',
                                     billing_email_address: 'harry@gmail.com'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_shipping_email])
+      expect(response).to eq(successful: false, errors: [:invalid_shipping_email_address])
     end
 
     it 'can return an error for invalid shipping email' do
@@ -335,7 +335,7 @@ describe SaveCustomerDetails do
                                     billing_phone_number: '079124566721',
                                     billing_email_address: 'paulie'
                                   })
-      expect(response).to eq(successful: false, errors: [:invalid_billing_email])
+      expect(response).to eq(successful: false, errors: [:invalid_billing_email_address])
     end
   end
 end
