@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-require './index'
+require './lib/index'
 run Sinatra::Application
