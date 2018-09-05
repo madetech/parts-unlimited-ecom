@@ -1,18 +1,54 @@
+# !/usr/bin/env ruby -I ../lib -I lib
 # frozen_string_literal: true
-#!/usr/bin/env ruby -I ../lib -I lib
-# coding: utf-8
 
 require 'sinatra'
 require './lib/file_customer_gateway'
 require './lib/use_cases/save_customer_details'
+require './lib/use_cases/view_summary'
 require './lib/builder/customer'
 require './lib/domain/address'
 require './lib/domain/customer'
+
+class ItemsGateway
+  def all
+    [
+      { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
+      { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
+      { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
+      { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
+      { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
+      { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
+      { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
+      { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
+      { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
+      { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 }
+    ]
+  end
+end
 
 get '/customer-details' do
   @customer_details = {}
   @errors = []
   erb :customer_details
+end
+
+get '/order-summary' do
+  file_items_gateway = ItemsGateway.new
+  file_customer_gateway = FileCustomerGateway.new
+  summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway).execute
+  @customer = summary[:customer]
+  @items = summary[:items]
+  erb :summary
 end
 
 post '/customer-details' do
@@ -56,4 +92,3 @@ post '/customer-details' do
   return redirect '/add-items' if response[:successful]
   erb :customer_details
 end
-

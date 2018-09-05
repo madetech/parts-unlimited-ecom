@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col" >
+          <% @customer.each  do |key|%>
+          <%= key.to_s %>
+          <%= @customer[:key] %>
+          <% end %>
+        </div>
+        <div class="col">
+          <% @customer.each  do |key|%>
+          <%= key.to_s %>
+          <%= @customer[:key] %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+
+ <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item[:part_id] %></td>
+      <td><%= item[:part_name] %></td>
+      <td>£ <%= item[:part_price].to_f.round(2) %></td>
+      <td> <span style="font-size: 15px; font-weight: normal;" class="badge badge-primary badge-pill"> <%= item[:part_quantity] %> </span>
+  </td>
+    </tr>
+     <% end %>
+  </tbody>
+</table>
+      </div>
+    </div>
+    </div>
+
+
+  </body>
