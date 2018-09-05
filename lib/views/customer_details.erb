@@ -28,7 +28,7 @@
                 value="<%= @customer_details[:customer_name] %>"
               />
               <%if @errors.include?(:missing_customer_name)%>
-                <p class="text-danger">Missing Customer Name</p>
+                <p class="text-danger">Please enter a customer name</p>
               <%end%>
             </div>
             <h3 class="pt-1 pb-1"> Shipping Details </h3>
@@ -42,7 +42,7 @@
                 value="<%= @customer_details[:shipping_address_line1] %>"
               />
               <%if @errors.include?(:missing_shipping_address_line1)%>
-                <p class="text-danger">Missing Shipping Address</p>
+                <p class="text-danger">Please enter a shipping address</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -65,7 +65,7 @@
                 value="<%= @customer_details[:shipping_city] %>"
               />
               <%if @errors.include?(:missing_shipping_city)%>
-                <p class="text-danger">Missing Shipping City</p>
+                <p class="text-danger">Please enter a shipping city</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
                 value="<%= @customer_details[:shipping_county] %>"
               />
               <%if @errors.include?(:missing_shipping_county)%>
-                <p class="text-danger">Missing Shipping County</p>
+                <p class="text-danger">Please enter a shipping county</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -91,9 +91,9 @@
                 value="<%= @customer_details[:shipping_postcode] %>"
               />
               <%if @errors.include?(:missing_shipping_postcode)%>
-                <p class="text-danger">Missing Shipping Postcode</p>
+                <p class="text-danger">Please enter a shipping postcode</p>
               <%elsif @errors.include?(:invalid_shipping_postcode)%>
-                <p class="text-danger">Invalid Shipping Postcode</p>
+                <p class="text-danger">This postcode is invalid</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -106,9 +106,9 @@
                 value="<%= @customer_details[:shipping_phone_number] %>"
               />
               <%if @errors.include?(:missing_shipping_phone_number)%>
-                <p class="text-danger">Missing Shipping Phone Number</p>
+                <p class="text-danger">Please enter a shipping phone number</p>
               <%elsif @errors.include?(:invalid_shipping_phone_number)%>
-                <p class="text-danger">Invalid Shipping Phone Number</p>
+                <p class="text-danger">This phone number is invalid</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -121,9 +121,9 @@
                 value="<%= @customer_details[:shipping_email_address] %>"
               />
               <%if @errors.include?(:missing_shipping_email_address)%>
-                <p class="text-danger">Missing Shipping Email</p>
+                <p class="text-danger">Please enter a shipping email</p>
               <%elsif @errors.include?(:invalid_shipping_email_address)%>
-                <p class="text-danger">Invalid Shipping Email</p>
+                <p class="text-danger">This email is invalid</p>
               <%end%>
             </div>
             <h3 class="pt-1 pb-1"> Billing Details </h3>
@@ -137,7 +137,7 @@
                 value="<%= @customer_details[:billing_address_line1] %>"
               />
               <%if @errors.include?(:missing_billing_address_line1)%>
-                <p class="text-danger">Missing Billing Address Line</p>
+                <p class="text-danger">Please enter a billing address</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -160,7 +160,7 @@
                 value="<%= @customer_details[:billing_city] %>"
               />
               <%if @errors.include?(:missing_billing_city)%>
-                <p class="text-danger">Missing Billing City</p>
+                <p class="text-danger">Please enter a billing city</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -173,7 +173,7 @@
                 value="<%= @customer_details[:billing_county] %>"
               />
               <%if @errors.include?(:missing_billing_county)%>
-                <p class="text-danger">Missing Billing County</p>
+                <p class="text-danger">Please enter a billing county</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -186,9 +186,9 @@
                 value="<%= @customer_details[:billing_postcode] %>"
               />
               <%if @errors.include?(:missing_billing_postcode)%>
-                <p class="text-danger">Missing Billing Postcode</p>
+                <p class="text-danger">Please enter a billing postcode</p>
               <%elsif @errors.include?(:invalid_billing_postcode)%>
-                <p class="text-danger">Invalid Billing Postcode</p>
+                <p class="text-danger">This postcode is invalid</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -201,9 +201,9 @@
                 value="<%= @customer_details[:billing_phone_number] %>"
               />
               <%if @errors.include?(:missing_billing_phone_number)%>
-                <p class="text-danger">Missing Billing Phone Number</p>
+                <p class="text-danger">Please enter a billing phone number</p>
               <%elsif @errors.include?(:invalid_billing_phone_number)%>
-                <p class="text-danger">Invalid Billing Phone Number</p>
+                <p class="text-danger">This phone number is invalid</p>
               <%end%>
             </div>
             <div class="form-group">
@@ -216,12 +216,12 @@
                 value="<%= @customer_details[:billing_email_address] %>"
               />
               <%if @errors.include?(:missing_billing_email_address)%>
-                <p class="text-danger">Missing Billing Email</p>
+                <p class="text-danger">Please enter a billing email</p>
               <%elsif @errors.include?(:invalid_billing_email_address)%>
-                <p class="text-danger">Invalid Billing Email</p>
+                <p class="text-danger">This email is invalid</p>
               <%end%>
             </div>
-            <button type="submit" class="btn btn-primary pt-1 pb-1">Submit</button>
+            <button type="submit" class="btn btn-primary pt-1 pb-1">Next</button>
           </form>
         </div>
         <div class="col-3">
