@@ -57,6 +57,3 @@ post '/customer-details' do
   erb :customer_details
 end
 
-get '/add-items' do
-  'Hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-end
