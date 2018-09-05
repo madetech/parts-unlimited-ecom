@@ -177,3 +177,51 @@ describe 'add items' do
     end
   end
 end
+
+describe 'add items' do
+  let(:items_gateway) { FileItemsGateway.new }
+  let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }
+
+  context 'given valid item detais' do
+    it 'stores the item details' do
+      items_details = [
+        { part_id: '123', part_name: 'Bits', part_price: 5, part_quantity: 1 }
+      ]
+      save_items_details.execute(items_details: items_details)
+      items = items_gateway.all
+      expect(items).to eq([
+        { part_id: '123', part_name: 'Bits', part_price: 5, part_quantity: 1 }
+      ])
+    end
+
+    it 'stores the multiple items details' do
+      items_details = [
+        { part_id: '233', part_name: 'Bats', part_price: 12, part_quantity: 4 },
+        { part_id: '343', part_name: 'Buts', part_price: 17, part_quantity: 10 }
+      ]
+      save_items_details.execute(items_details: items_details)
+      items = items_gateway.all
+      expect(items).to eq([
+        { part_id: '233', part_name: 'Bats', part_price: 12, part_quantity: 4 },
+        { part_id: '343', part_name: 'Buts', part_price: 17, part_quantity: 10 }
+      ])
+    end
+  end
+
+  context 'given invalid items details' do
+    it 'responds with a validation error' do
+      items_details = [
+        { part_id: '', part_name: '', part_price: 0, part_quantity: 0 }
+      ]
+      response = save_items_details.execute(items_details: items_details)
+      expect(response).to eq(
+        successful: false,
+        errors: [
+          [:missing_part_id, 0],
+          [:missing_part_name, 0],
+          [:missing_part_price, 0],
+          [:missing_part_quantity, 0]
+        ])
+    end
+  end
+end
