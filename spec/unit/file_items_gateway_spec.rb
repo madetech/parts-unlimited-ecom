@@ -10,8 +10,8 @@ describe FileItemsGateway do
   end
 
   it 'can get a row of item details' do
-    items = [{ part_id: '108', part_name: 'Jeremy', part_price: 28, part_quantity: 1 }]
+    items = [{ part_id: '108', part_name: 'Jeremy', part_price: '28.00', part_quantity: '1' }]
     file_items_gateway.save(items)
-    expect(file_items_gateway.all).to eq([{ part_id: '108', part_name: 'Jeremy', part_price: 28, part_quantity: 1 }])
+    expect(file_items_gateway.all).to eq([{ part_id: '108', part_name: 'Jeremy', part_price: '28.00', part_quantity: '1' }])
   end
 end
