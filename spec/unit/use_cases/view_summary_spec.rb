@@ -7,19 +7,16 @@ describe ViewSummary do
 
   it 'uses the gateway to retrieve the details' do
     view_summary.execute
-
     expect(file_customer_gateway).to have_received(:all)
   end
 
   it 'uses the gateway to retrieve items' do
     view_summary.execute
-
     expect(file_items_gateway).to have_received(:all)
   end
 
   it 'returns items' do
     response = view_summary.execute
-
     expect(response.key?(:items)).to be(true)
   end
 end
