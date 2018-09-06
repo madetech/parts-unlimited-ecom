@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 Capybara.app = Sinatra::Application
 
 describe 'customer details', type: :feature do
-
   def visit_customer_details_page_in_form
     visit '/customer-details'
     within('form') do
@@ -9,7 +10,7 @@ describe 'customer details', type: :feature do
     end
     click_button('Next')
   end
-    
+
   it 'accepts a customer name' do
     visit_customer_details_page_in_form { fill_in('customer_name', with: 'Larry') }
     expect(page).to have_no_content('Please enter a customer name')
@@ -31,7 +32,7 @@ describe 'customer details', type: :feature do
   end
 
   it 'goes to the add items page' do
-    visit_customer_details_page_in_form {
+    visit_customer_details_page_in_form do
       fill_in('customer_name', with: 'Bob')
       fill_in('shipping_address_line1', with: '1 Fake Street')
       fill_in('shipping_address_line2', with: 'Fake Flat')
@@ -47,12 +48,12 @@ describe 'customer details', type: :feature do
       fill_in('billing_postcode', with: 'FK2 1EE')
       fill_in('billing_phone_number', with: '01982371234')
       fill_in('billing_email_address', with: 'fake2@gmail.com')
-    }
+    end
     expect(current_path).to eq('/add-items')
   end
 
   it 'keeps content on the page if there is an invalid entry' do
-    visit_customer_details_page_in_form {
+    visit_customer_details_page_in_form do
       fill_in('customer_name', with: 'Bob')
       fill_in('shipping_address_line1', with: '1 Fake Street')
       fill_in('shipping_address_line2', with: 'Fake Flat')
@@ -68,7 +69,7 @@ describe 'customer details', type: :feature do
       fill_in('billing_postcode', with: 'FK2 1EE')
       fill_in('billing_phone_number', with: '01982371234')
       fill_in('billing_email_address', with: 'fake2@gmail.com')
-    }
+    end
     expect(find_field('customer_name').value).to eq('Bob')
     expect(find_field('shipping_address_line1').value).to eq('1 Fake Street')
     expect(find_field('shipping_address_line2').value).to eq('Fake Flat')
