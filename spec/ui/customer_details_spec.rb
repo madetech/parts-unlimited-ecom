@@ -49,7 +49,7 @@ describe 'customer details', type: :feature do
       fill_in('billing_phone_number', with: '01982371234')
       fill_in('billing_email_address', with: 'fake2@gmail.com')
     end
-    expect(current_path).to eq('/add-items')
+    expect(current_path).to eq('/items-details')
   end
 
   it 'keeps content on the page if there is an invalid entry' do
