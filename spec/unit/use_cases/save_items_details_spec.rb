@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SaveItemsDetails do
   let(:items_gateway) { spy }
   let(:use_case) do
@@ -20,24 +22,24 @@ describe SaveItemsDetails do
 
   it 'returns an error for missing part id' do
     response = use_case.execute(items_details: [
-        { part_id: '', part_name: 'Bobs', part_price: '10.00', part_quantity: '10' }
-      ])
+                                  { part_id: '', part_name: 'Bobs', part_price: '10.00', part_quantity: '10' }
+                                ])
     expect(response).to eq(successful: false,
-      errors: [
-        [:missing_part_id, 0]
-      ])
+                           errors: [
+                             [:missing_part_id, 0]
+                           ])
   end
 
   it 'returns an error for multiple invalid rows' do
     response = use_case.execute(items_details: [
-        { part_id: '14', part_name: '', part_price: '10.00', part_quantity: '10' },
-        { part_id: '', part_name: '', part_price: '10.00', part_quantity: '10' }
-      ])
+                                  { part_id: '14', part_name: '', part_price: '10.00', part_quantity: '10' },
+                                  { part_id: '', part_name: '', part_price: '10.00', part_quantity: '10' }
+                                ])
     expect(response).to eq(successful: false,
-      errors: [
-        [:missing_part_name, 0],
-        [:missing_part_id, 1],
-        [:missing_part_name, 1]
-      ])
+                           errors: [
+                             [:missing_part_name, 0],
+                             [:missing_part_id, 1],
+                             [:missing_part_name, 1]
+                           ])
   end
 end
