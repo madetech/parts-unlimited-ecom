@@ -9,6 +9,7 @@ require './lib/builder/customer'
 require './lib/domain/address'
 require './lib/domain/customer'
 
+
 class ItemsGateway
   def all
     [
@@ -34,6 +35,9 @@ class ItemsGateway
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 }
     ]
   end
+
+get '/' do 
+  redirect '/customer-details'
 end
 
 get '/customer-details' do
