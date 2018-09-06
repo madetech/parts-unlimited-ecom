@@ -35,6 +35,7 @@ class ItemsGateway
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 }
     ]
   end
+end
 
 get '/' do 
   redirect '/customer-details'
