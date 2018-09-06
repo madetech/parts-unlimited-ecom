@@ -5,6 +5,7 @@ require 'sinatra'
 require './lib/file_customer_gateway'
 require './lib/file_items_gateway'
 require './lib/use_cases/save_customer_details'
+require './lib/use_cases/save_items_details'
 require './lib/use_cases/view_summary'
 require './lib/builder/customer'
 require './lib/domain/address'
@@ -23,6 +24,22 @@ get '/customer-details' do
   @customer_details = {}
   @errors = []
   erb :customer_details
+end
+
+get '/items-details' do
+  @items_details = []
+  @errors = []
+  erb :items_details
+end
+
+get '/order-summary' do
+  file_items_gateway = ItemsGateway.new
+  file_customer_gateway = FileCustomerGateway.new
+  view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway)
+  summary = view_summary.execute
+  @customer = summary[:customer]
+  @items = summary[:items]
+  erb :summary
 end
 
 post '/customer-details' do
