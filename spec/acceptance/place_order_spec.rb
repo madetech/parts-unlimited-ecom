@@ -138,7 +138,7 @@ describe 'add items' do
   context 'given valid item detais' do
     it 'stores the item details' do
       items_details = [
-        { part_id: '123', part_name: 'Bits', part_price: '5.00', part_quantity: '1' }
+        { part_id: '123', part_name: 'Bits', part_price: '5.00', part_quantity: '1'}
       ]
       save_items_details.execute(items_details: items_details)
       items = items_gateway.all
