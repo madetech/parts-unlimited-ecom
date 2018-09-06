@@ -101,6 +101,6 @@ post '/customer-details' do
   response = save_customer_details.execute(customer_details: @customer_details)
   @errors = response[:errors]
 
-  return redirect '/add-items' if response[:successful]
+  return redirect '/items-details' if response[:successful]
   erb :customer_details
 end
