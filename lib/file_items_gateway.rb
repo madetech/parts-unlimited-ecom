@@ -6,8 +6,7 @@ class FileItemsGateway
   def all
     return [] unless File.exist?(FILE_PATH)
     File.open(FILE_PATH, 'r') do |file|
-      items = JSON.parse(file.read, symbolize_names: true)
-      items
+      JSON.parse(file.read, symbolize_names: true)
     end
   end
 

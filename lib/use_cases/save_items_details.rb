@@ -8,9 +8,7 @@ class SaveItemsDetails
   def execute(items_details:)
     @items_details = items_details
 
-    errors = []
-    errors.push(missing?)
-    errors = errors.flatten(1)
+    errors = validation
 
     return { successful: false, errors: errors } unless errors.empty?
 
@@ -22,13 +20,22 @@ class SaveItemsDetails
 
   private
 
-  def missing?
+  def validation
+    errors = []
+    errors.push(missing_fields)
+    errors = errors.flatten(1)
+    errors
+  end
+
+  def missing_fields
     errors = []
     @items_details.each_with_index do |row, index|
       row.each_key do |col|
-        errors.push([:"missing_#{col}", index]) if @items_details[index][col] == '' || @items_details[index][col] == 0
+        errors.push([:"missing_#{col}", index]) if @items_details[index][col].empty?
       end
     end
     errors
   end
+
+
 end
