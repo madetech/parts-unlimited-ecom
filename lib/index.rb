@@ -50,7 +50,8 @@ end
 get '/order-summary' do
   file_items_gateway = ItemsGateway.new
   file_customer_gateway = FileCustomerGateway.new
-  summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway).execute
+  view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway)
+  summary = view_summary.execute
   @customer = summary[:customer]
   @items = summary[:items]
   erb :summary
