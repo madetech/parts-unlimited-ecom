@@ -9,6 +9,11 @@ require './lib/builder/customer'
 require './lib/domain/address'
 require './lib/domain/customer'
 
+
+get '/' do 
+  redirect '/customer-details'
+end
+
 get '/customer-details' do
   @customer_details = {}
   @errors = []
