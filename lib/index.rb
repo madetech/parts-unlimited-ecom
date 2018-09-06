@@ -4,6 +4,7 @@
 require 'sinatra'
 require './lib/file_customer_gateway'
 require './lib/use_cases/save_customer_details'
+require './lib/use_cases/save_items_details'
 require './lib/use_cases/view_summary'
 require './lib/builder/customer'
 require './lib/domain/address'
@@ -36,7 +37,7 @@ class ItemsGateway
   end
 end
 
-get '/' do 
+get '/' do
   redirect '/customer-details'
 end
 
@@ -44,6 +45,12 @@ get '/customer-details' do
   @customer_details = {}
   @errors = []
   erb :customer_details
+end
+
+get '/items-details' do
+  @items_details = []
+  @errors = []
+  erb :items_details
 end
 
 get '/order-summary' do
