@@ -22,8 +22,8 @@ describe SaveItemsDetails do
 
   it 'returns an error for missing part id' do
     response = use_case.execute(items_details: [
-                                  { part_id: '', part_name: 'Bobs', part_price: '10.00', part_quantity: '10' }
-                                ])
+        { part_id: '', part_name: 'Bobs', part_price: '10.00', part_quantity: '10' }
+      ])
     expect(response).to eq(successful: false,
                            errors: [
                              [:missing_part_id, 0]
@@ -32,9 +32,9 @@ describe SaveItemsDetails do
 
   it 'returns an error for multiple invalid rows' do
     response = use_case.execute(items_details: [
-                                  { part_id: '14', part_name: '', part_price: '10.00', part_quantity: '10' },
-                                  { part_id: '', part_name: '', part_price: '10.00', part_quantity: '10' }
-                                ])
+        { part_id: '14', part_name: '', part_price: '10.00', part_quantity: '10' },
+        { part_id: '', part_name: '', part_price: '10.00', part_quantity: '10' }
+      ])
     expect(response).to eq(successful: false,
                            errors: [
                              [:missing_part_name, 0],
