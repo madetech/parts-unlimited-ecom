@@ -126,43 +126,58 @@ describe 'add items' do
 
   context 'given valid item detais' do
     it 'stores the item details' do
-      items_details = [
-        { part_id: '123', part_name: 'Bits', part_price: '5.00', part_quantity: '1'}
-      ]
-      save_items_details.execute(items_details: items_details)
-      items = items_gateway.all
-      expect(items).to eq(items_details)
+      ordered_items = [{
+        id: '123',
+        name: 'Bits',
+        price: '5.00',
+        quantity: '1'
+      }]
+      save_items_details.execute(items: ordered_items)
+
+      items = items_gateway.all.first
+
+      expect(items[0].id).to eq('123')
+      expect(items[0].name).to eq('Bits')
+      expect(items[0].price).to eq('5.00')
+      expect(items[0].quantity).to eq('1')
     end
 
     it 'stores the multiple items details' do
-      items_details = [
-        { part_id: '233', part_name: 'Bats', part_price: '12.00', part_quantity: '4' },
-        { part_id: '343', part_name: 'Buts', part_price: '17.00', part_quantity: '10' }
+      ordered_items = [
+        { id: '233', name: 'Bats', price: '12.00', quantity: '4' },
+        { id: '343', name: 'Buts', price: '17.00', quantity: '10' }
       ]
-      save_items_details.execute(items_details: items_details)
-      items = items_gateway.all
-      expect(items).to eq([
-        { part_id: '233', part_name: 'Bats', part_price: '12.00', part_quantity: '4' },
-        { part_id: '343', part_name: 'Buts', part_price: '17.00', part_quantity: '10' }
-      ])
+
+      save_items_details.execute(items: ordered_items)
+
+      items = items_gateway.all.first
+
+      expect(items[0].id).to eq('233')
+      expect(items[0].name).to eq('Bats')
+      expect(items[0].price).to eq('12.00')
+      expect(items[0].quantity).to eq('4')
+      expect(items[1].id).to eq('343')
+      expect(items[1].name).to eq('Buts')
+      expect(items[1].price).to eq('17.00')
+      expect(items[1].quantity).to eq('10')
     end
   end
 
   context 'given invalid items details' do
     it 'responds with a validation error' do
-      items_details = [
-        { part_id: '', part_name: '', part_price: '', part_quantity: '' }
+      ordered_items = [
+        { id: '', name: '', price: '', quantity: '' }
       ]
-      response = save_items_details.execute(items_details: items_details)
+      response = save_items_details.execute(items: ordered_items)
       expect(response).to eq(
         successful: false,
         errors: [
-          [:missing_part_id, 0],
-          [:missing_part_name, 0],
-          [:missing_part_price, 0],
-          [:missing_part_quantity, 0]
-        ])
+          [:missing_id, 0],
+          [:missing_name, 0],
+          [:missing_price, 0],
+          [:missing_quantity, 0]
+        ]
+      )
     end
   end
 end
-
