@@ -5,10 +5,13 @@ require 'sinatra'
 require './lib/file_customer_gateway'
 require './lib/file_items_gateway'
 require './lib/use_cases/save_customer_details'
+require './lib/use_cases/save_items_details'
 require './lib/use_cases/view_summary'
 require './lib/builder/customer'
+require './lib/builder/items'
 require './lib/domain/address'
 require './lib/domain/customer'
+require './lib/domain/items'
 
 before do
   @customer_gateway = FileCustomerGateway.new
@@ -23,6 +26,12 @@ get '/customer-details' do
   @customer_details = {}
   @errors = []
   erb :customer_details
+end
+
+get '/items-details' do
+  @items_details = []
+  @errors = []
+  erb :items_details
 end
 
 post '/customer-details' do
@@ -62,11 +71,8 @@ post '/customer-details' do
   response = save_customer_details.execute(customer_details: @customer_details)
   @errors = response[:errors]
 
-  return redirect '/add-items' if response[:successful]
+  return redirect '/items-details' if response[:successful]
   erb :customer_details
-end
-
-get '/add-items' do
 end
 
 get '/order-summary' do

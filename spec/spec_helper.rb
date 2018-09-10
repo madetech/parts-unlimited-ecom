@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'builder/customer'
+require 'builder/items'
 require 'domain/address'
 require 'domain/customer'
+require 'domain/items'
 require 'use_cases/save_customer_details'
 require 'use_cases/view_summary'
 require 'use_cases/save_items_details'
