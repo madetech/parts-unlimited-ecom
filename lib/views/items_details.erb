@@ -12,10 +12,10 @@
           var newRow = $("<tr>");
           var cols = "";
 
-          cols += '<td><input type="text" class="form-control" name="part_id' + counter + '"/></td>';
-          cols += '<td><input type="text" class="form-control" name="part_name' + counter + '"/></td>';
-          cols += '<td><input type="text" class="form-control" name="part_price' + counter + '"/></td>';
-          cols += '<td><input type="text" class="form-control" name="part_quantity' + counter + '"/></td>';
+          cols += '<td><input type="text" class="form-control" name="id' + counter + '"/></td>';
+          cols += '<td><input type="text" class="form-control" name="name' + counter + '"/></td>';
+          cols += '<td><input type="text" class="form-control" name="price' + counter + '"/></td>';
+          cols += '<td><input type="text" class="form-control" name="quantity' + counter + '"/></td>';
 
           cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
           newRow.append(cols);
@@ -62,16 +62,16 @@
               <tbody>
                 <tr>
                   <td class="col-auto">
-                    <input type="text" name="part_id" class="form-control" />
+                    <input type="text" name="id" class="form-control" />
                   </td>
                   <td class="col-auto">
-                    <input type="text" name="part_name"  class="form-control"/>
+                    <input type="text" name="name"  class="form-control"/>
                   </td>
                   <td class="col-auto">
-                    <input type="text" name="part_price"  class="form-control"/>
+                    <input type="text" name="price"  class="form-control"/>
                   </td>
                   <td class="col-auto">
-                    <input type="text" name="part_quantity"  class="form-control"/>
+                    <input type="text" name="quantity"  class="form-control"/>
                   </td>
                   <td class="col-auto"><a class="deleteRow"></a>
                   </td>
