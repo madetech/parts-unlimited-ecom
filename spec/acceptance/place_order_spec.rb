@@ -115,14 +115,14 @@ describe 'customer details' do
       }
 
       items = [
-        { part_id: '456', part_name: 'Drones', part_price: '144', part_quantity: '34' },
-        { part_id: '454', part_name: 'Uranium', part_price: '130', part_quantity: '100' },
-        { part_id: '767', part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: '10', part_quantity: '200000' },
-        { part_id: '999', part_name: 'Screws', part_price: '0.9', part_quantity: '2000' }
+        { id: '456', name: 'Drones', price: '144', quantity: '34' },
+        { id: '454', name: 'Uranium', price: '130', quantity: '100' },
+        { id: '767', name: 'ACHSDJVHJDWVVFWVYEUVFW', price: '10', quantity: '200000' },
+        { id: '999', name: 'Screws', price: '0.9', quantity: '2000' }
       ]
 
       save_customer_details.execute(customer_details: customer_details)
-      save_items_details.execute(items_details: items)
+      save_items_details.execute(items: items)
 
       view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway)
       response = view_summary.execute
