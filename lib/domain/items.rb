@@ -1,12 +1,9 @@
-class Items
-  attr_accessor :part_id,
-                :part_name,
-                :part_price,
-                :part_quantity,
-                :part_total
+# frozen_string_literal: true
 
-  def item_total
-    part_price * part_quantity
-  end 
-   
+class Item
+  attr_accessor :id,
+                :name,
+                :price,
+                :quantity,
+                :total
 end

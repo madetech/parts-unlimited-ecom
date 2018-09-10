@@ -107,6 +107,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   guard-rspec
+  pry
   rerun
   rspec
   rubocop

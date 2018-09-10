@@ -15,23 +15,23 @@ class ItemsGateway
     [
       { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
       { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
-      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200_000 },
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
       { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
       { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
-      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200_000 },
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
       { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
       { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
-      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200_000 },
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
       { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
       { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
-      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200_000 },
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 },
       { part_id: 456, part_name: 'Drones', part_price: 144, part_quantity: 34 },
       { part_id: 454, part_name: 'Uranium', part_price: 130, part_quantity: 100 },
-      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200000 },
+      { part_id: 767, part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: 10, part_quantity: 200_000 },
       { part_id: 999, part_name: 'Screws', part_price: 0.9, part_quantity: 2000 }
     ]
   end

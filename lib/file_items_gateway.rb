@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 class FileItemsGateway
@@ -6,13 +8,23 @@ class FileItemsGateway
   def all
     return [] unless File.exist?(FILE_PATH)
     File.open(FILE_PATH, 'r') do |file|
-      JSON.parse(file.read, symbolize_names: true)
+      item_builder = ItemBuilder::Item.new
+      item_builder.items = JSON.parse(file.read, symbolize_names: true)
+      [item_builder.build]
     end
   end
 
-  def save(items)
+  def save(item)
+    item.map! do |part|
+      {
+        id: part.id,
+        name: part.name,
+        price: part.price,
+        quantity: part.quantity
+      }
+    end
     File.open(FILE_PATH, 'w') do |file|
-      file.write(items.to_json)
+      file.write(item.to_json)
     end
   end
 
