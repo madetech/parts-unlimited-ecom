@@ -5,14 +5,17 @@ class SaveItemsDetails
     @items_gateway = items_gateway
   end
 
-  def execute(items_details:)
-    @items_details = items_details
+  def execute(items:)
+    @items = items
 
     errors = validation
 
     return { successful: false, errors: errors } unless errors.empty?
 
-    @items_gateway.save(items_details)
+    item_builder = ItemBuilder::Item.new
+    item_builder.items = @items
+
+    @items_gateway.save(item_builder.build)
 
     { successful: true, errors: [] }
   end
@@ -28,13 +31,11 @@ class SaveItemsDetails
 
   def missing_fields
     errors = []
-    @items_details.each_with_index do |row, index|
-      row.each_key do |col|
-        errors.push([:"missing_#{col}", index]) if @items_details[index][col].empty?
+    @items.each_with_index do |row, index|
+      row.each_key do |column|
+        errors.push([:"missing_#{column}", index]) if @items[index][column].empty?
       end
     end
     errors
   end
-
-
 end

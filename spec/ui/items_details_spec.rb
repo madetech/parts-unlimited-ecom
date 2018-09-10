@@ -10,6 +10,4 @@ describe 'items details', type: :feature do
     end
     click_button('Next')
   end
-
-
 end
