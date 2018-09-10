@@ -8,8 +8,10 @@ require './lib/use_cases/save_customer_details'
 require './lib/use_cases/save_items_details'
 require './lib/use_cases/view_summary'
 require './lib/builder/customer'
+require './lib/builder/items'
 require './lib/domain/address'
 require './lib/domain/customer'
+require './lib/domain/items'
 
 before do
   @customer_gateway = FileCustomerGateway.new
@@ -30,16 +32,6 @@ get '/items-details' do
   @items_details = []
   @errors = []
   erb :items_details
-end
-
-get '/order-summary' do
-  file_items_gateway = ItemsGateway.new
-  file_customer_gateway = FileCustomerGateway.new
-  view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway)
-  summary = view_summary.execute
-  @customer = summary[:customer]
-  @items = summary[:items]
-  erb :summary
 end
 
 post '/customer-details' do
@@ -81,9 +73,6 @@ post '/customer-details' do
 
   return redirect '/items-details' if response[:successful]
   erb :customer_details
-end
-
-get '/add-items' do
 end
 
 get '/order-summary' do
