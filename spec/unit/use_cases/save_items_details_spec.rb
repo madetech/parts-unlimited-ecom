@@ -7,39 +7,58 @@ describe SaveItemsDetails do
   end
 
   it 'uses the items gateway to save the order details' do
-    use_case.execute(items_details: [{ part_id: '456', part_name: 'Bots', part_price: '10.00', part_quantity: '2' }])
-    expect(items_gateway).to have_received(:save).with([{ part_id: '456', part_name: 'Bots', part_price: '10.00', part_quantity: '2' }])
+    use_case.execute(items: [{
+                       id: '456',
+                       name: 'Bots',
+                       price: '10.00',
+                       quantity: '2'
+                     }])
+    expect(items_gateway).to have_received(:save) do |items|
+      expect(items[0].id).to eq('456')
+      expect(items[0].name).to eq('Bots')
+      expect(items[0].price).to eq('10.00')
+      expect(items[0].quantity).to eq('2')
+    end
   end
 
   it 'uses the items gateway to save multiple rows' do
-    items_details = [
-      { part_id: '999', part_name: 'Bobs', part_price: '99.00', part_quantity: '25' },
-      { part_id: '167', part_name: 'Lobs', part_price: '145.00', part_quantity: '3' }
+    items = [
+      { id: '999', name: 'Bobs', price: '99.00', quantity: '25' },
+      { id: '167', name: 'Lobs', price: '145.00', quantity: '3' }
     ]
-    use_case.execute(items_details: items_details)
-    expect(items_gateway).to have_received(:save).with(items_details)
+    use_case.execute(items: items)
+    expect(items_gateway).to have_received(:save) do |items|
+      expect(items[0].id).to eq('999')
+      expect(items[0].name).to eq('Bobs')
+      expect(items[0].price).to eq('99.00')
+      expect(items[0].quantity).to eq('25')
+      expect(items[1].id).to eq('167')
+      expect(items[1].name).to eq('Lobs')
+      expect(items[1].price).to eq('145.00')
+      expect(items[1].quantity).to eq('3')
+    end
   end
 
-  it 'returns an error for missing part id' do
-    response = use_case.execute(items_details: [
-                                  { part_id: '', part_name: 'Bobs', part_price: '10.00', part_quantity: '10' }
+  it 'returns an error for missing id' do
+    response = use_case.execute(items: [
+                                  { id: '', name: 'Bobs', price: '10.00', quantity: '10' }
                                 ])
     expect(response).to eq(successful: false,
                            errors: [
-                             [:missing_part_id, 0]
+                             [:missing_id, 0]
                            ])
   end
 
   it 'returns an error for multiple invalid rows' do
-    response = use_case.execute(items_details: [
-                                  { part_id: '14', part_name: '', part_price: '10.00', part_quantity: '10' },
-                                  { part_id: '', part_name: '', part_price: '10.00', part_quantity: '10' }
+    response = use_case.execute(items: [
+                                  { id: '14', name: '', price: '10.00', quantity: '10' },
+                                  { id: '', name: '', price: '10.00', quantity: '10' }
                                 ])
     expect(response).to eq(successful: false,
                            errors: [
-                             [:missing_part_name, 0],
-                             [:missing_part_id, 1],
-                             [:missing_part_name, 1]
+                             [:missing_name, 0],
+                             [:missing_id, 1],
+                             [:missing_name, 1]
                            ])
   end
 end

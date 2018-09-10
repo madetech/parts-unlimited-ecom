@@ -50,30 +50,29 @@
       </div>
       <div class="row">
         <div class="col" >
-
-      <table class="table table-hover border rounded bg-white">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @items.each do |item| %>
-          <tr>
-            <td style="width: 10%;"><%= item[:part_id] %></td>
-            <td style="width: 40%;" ><%= item[:part_name] %></td>
-            <td style="width: 40%;" ><%= item[:part_price] %></td>
-            <td style="width: 10%;" > <span style="font-size: 15px; font-weight: normal;" class="badge badge-primary badge-pill"> <%= item[:part_quantity] %> </span>
-        </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-            </div>
-          </div>
+          <table class="table table-hover border rounded bg-white">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @items.each do |item| %>
+              <tr>
+                <td style="width: 10%;"><%= item[:part_id] %></td>
+                <td style="width: 40%;" ><%= item[:part_name] %></td>
+                <td style="width: 40%;" ><%= item[:part_price] %></td>
+                <td style="width: 10%;" > <span style="font-size: 15px; font-weight: normal;" class="badge badge-primary badge-pill"> <%= item[:part_quantity] %> </span>
+            </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     </div>
   </div>
@@ -84,6 +83,4 @@
     </div> 
    </div>
   </div>
-
-
-  </body>
+</body>
