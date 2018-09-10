@@ -4,17 +4,17 @@
 }
 
 .container-progress {
-  width: 600px;
+  width: 1000px;
   margin: 50px auto; 
 }
 .progressbar {
   counter-reset: step;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 
 .progressbar li {
   list-style-type: none;
-  width: 25%;
+  width: 30%;
   float: left;
   font-size: 12px;
   position: relative;
