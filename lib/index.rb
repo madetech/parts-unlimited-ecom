@@ -16,6 +16,8 @@ require './lib/domain/items'
 before do
   @customer_gateway = FileCustomerGateway.new
   @items_gateway = FileItemsGateway.new
+  view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway)
+  @summary = view_summary.execute
 end
 
 get '/' do
@@ -26,12 +28,6 @@ get '/customer-details' do
   @customer_details = {}
   @errors = []
   erb :customer_details
-end
-
-get '/items-details' do
-  @items_details = []
-  @errors = []
-  erb :items_details
 end
 
 post '/customer-details' do
@@ -75,10 +71,30 @@ post '/customer-details' do
   erb :customer_details
 end
 
+get '/items-details' do
+  @items_gateway.delete_all
+  @items = []
+  @errors = []
+  erb :items_details
+end
+
+post '/add-item' do
+  price = params.fetch(:price)
+  id = params.fetch(:id)
+  name = params.fetch(:name)
+  quantity = params.fetch(:quantity)
+
+  item_row = { id: id, name: name, price: price, quantity: quantity }
+
+  save_items_details = SaveItemsDetails.new(items_gateway: @items_gateway)
+  response = save_items_details.execute(item: item_row)
+
+  @items = @summary[:items]
+  erb :items_details
+end
+
 get '/order-summary' do
-  view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway)
-  summary = view_summary.execute
-  @customer = summary[:customer]
-  @items = summary[:items]
+  @customer = @summary[:customer]
+  @items = @summary[:items]
   erb :summary
 end
