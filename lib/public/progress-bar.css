@@ -1,10 +1,12 @@
 .container-progress {
   width: 600px;
-  margin: 100px auto; 
+  margin: 50px auto; 
 }
 .progressbar {
   counter-reset: step;
+  margin-left: 50px;
 }
+
 .progressbar li {
   list-style-type: none;
   width: 25%;
