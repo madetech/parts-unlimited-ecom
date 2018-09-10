@@ -14,8 +14,7 @@ class SaveItemsDetails
 
     @items_gateway.save(items_details)
 
-    return { successful: true, errors: [] }
-
+    { successful: true, errors: [] }
   end
 
   private
@@ -36,6 +35,4 @@ class SaveItemsDetails
     end
     errors
   end
-
-
 end

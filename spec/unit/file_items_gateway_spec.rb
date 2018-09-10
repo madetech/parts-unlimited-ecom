@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe FileItemsGateway do
   let(:file_items_gateway) { described_class.new }
 

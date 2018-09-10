@@ -4,7 +4,9 @@ require 'json'
 
 describe 'customer details' do
   let(:file_customer_gateway) { FileCustomerGateway.new }
+  let(:file_items_gateway) { FileItemsGateway.new }
   let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: file_customer_gateway) }
+  let(:save_items_details) { SaveItemsDetails.new(items_gateway: file_items_gateway) }
 
   context 'saving customer details' do
     context 'given valid customer details' do
@@ -112,10 +114,19 @@ describe 'customer details' do
         billing_email_address: 'barry@gmail.com'
       }
 
+      items = [
+        { part_id: '456', part_name: 'Drones', part_price: '144', part_quantity: '34' },
+        { part_id: '454', part_name: 'Uranium', part_price: '130', part_quantity: '100' },
+        { part_id: '767', part_name: 'ACHSDJVHJDWVVFWVYEUVFW', part_price: '10', part_quantity: '200000' },
+        { part_id: '999', part_name: 'Screws', part_price: '0.9', part_quantity: '2000' }
+      ]
+
       save_customer_details.execute(customer_details: customer_details)
-      view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: spy)
+      save_items_details.execute(items_details: items)
+
+      view_summary = ViewSummary.new(customer_gateway: file_customer_gateway, items_gateway: file_items_gateway)
       response = view_summary.execute
-      expect(response[:customer]).to eq(customer_details)
+      expect(response).to eq(customer: customer_details, items: items)
     end
   end
 end
@@ -142,9 +153,9 @@ describe 'add items' do
       save_items_details.execute(items_details: items_details)
       items = items_gateway.all
       expect(items).to eq([
-        { part_id: '233', part_name: 'Bats', part_price: '12.00', part_quantity: '4' },
-        { part_id: '343', part_name: 'Buts', part_price: '17.00', part_quantity: '10' }
-      ])
+                            { part_id: '233', part_name: 'Bats', part_price: '12.00', part_quantity: '4' },
+                            { part_id: '343', part_name: 'Buts', part_price: '17.00', part_quantity: '10' }
+                          ])
     end
   end
 
@@ -161,8 +172,8 @@ describe 'add items' do
           [:missing_part_name, 0],
           [:missing_part_price, 0],
           [:missing_part_quantity, 0]
-        ])
+        ]
+      )
     end
   end
 end
-
