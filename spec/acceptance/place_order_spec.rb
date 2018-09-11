@@ -165,7 +165,7 @@ describe 'place order' do
         expect(items[1].quantity).to eq('10')
       end
 
-      it 'can delete the a item row by index' do
+      it 'can delete a item row by index' do
         ordered_item1 = { id: '233', name: 'Bats', price: '12.00', quantity: '4' }
         ordered_item2 = { id: '343', name: 'Buts', price: '17.00', quantity: '10' }
         ordered_item3 = { id: '33', name: 'Bits', price: '1.00', quantity: '10' }
@@ -177,7 +177,7 @@ describe 'place order' do
         items = items_gateway.all
         expect(items.count).to eq(3)
 
-        items_gateway.delete(items.index(items[0]))
+        items_gateway.delete_row(0)
         items = items_gateway.all
         expect(items.count).to eq(2)
 

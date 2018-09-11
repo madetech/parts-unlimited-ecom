@@ -42,7 +42,7 @@ class FileItemsGateway
     File.unlink(FILE_PATH) if File.exist?(FILE_PATH)
   end
 
-  def delete(index)
+  def delete_row(index)
     items = all
     items.delete(items[index])
     save(items)
