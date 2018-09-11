@@ -14,6 +14,7 @@ class ViewSummary
   private
 
   def customer
+    return nil if @customer_gateway.all.empty?
     customer = @customer_gateway.all.first
     { customer_name: customer.customer_name,
       shipping_address_line1: customer.shipping_address_line1,

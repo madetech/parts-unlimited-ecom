@@ -195,7 +195,7 @@ describe 'place order' do
 
     context 'given invalid items details' do
       it 'responds with a validation error' do
-        ordered_item = { id: '', name: '', price: '', quantity: '' }
+        ordered_item = { id: '', name: '', price: 'efefger', quantity: 'ergre' }
 
         response = save_items_details.execute(item_details: ordered_item)
         expect(response).to eq(
@@ -203,8 +203,8 @@ describe 'place order' do
           errors: %i[
             missing_id
             missing_name
-            missing_price
-            missing_quantity
+            invalid_price
+            invalid_quantity
           ]
         )
       end
@@ -236,6 +236,16 @@ describe 'place order' do
 
         expect(response).to eq('166.50')
       end
+    end
+  end
+
+  context 'delete item' do
+    it 'deletes an item' do
+      item = { id: '123', name: 'Bits', price: '5.00', quantity: '1' }
+      save_items_details.execute(item_details: item)
+      delete_item = DeleteItem.new(items_gateway: items_gateway)
+      delete_item.execute(index: 0)
+      expect(view_summary.execute[:items]).to eq([])
     end
   end
 end

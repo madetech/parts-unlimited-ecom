@@ -51,27 +51,30 @@
       <div class="row">
         <div class="col" >
 
-      <table class="table table-hover border rounded bg-white">
+      <table class="table table-striped border rounded bg-white">
         <thead>
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
           </tr>
         </thead>
         <tbody>
           <% @items.each do |item| %>
           <tr>
-            <td style="width: 10%;"><%= item[:part_id] %></td>
-            <td style="width: 40%;" ><%= item[:part_name] %></td>
-            <td style="width: 40%;" ><%= item[:part_price] %></td>
-            <td style="width: 10%;" > <span style="font-size: 15px; font-weight: normal;" class="badge badge-primary badge-pill"> <%= item[:part_quantity] %> </span>
-        </td>
+            <td style="width: 10%;"><%= item[:id] %></td>
+            <td style="width: 40%;" ><%= item[:name] %></td>
+            <td style="width: 40%;" ><%= item[:price] %></td>
+            <td style="width: 10%;" ><%= item[:quantity] %></td>
+            <td style="width: 10%;" ><%= item[:total] %></td>
           </tr>
           <% end %>
         </tbody>
       </table>
+      <h6 class="float-right p-3"> Net Total: £<%= @net_total %> </h6>
+
             </div>
           </div>
     </div>
