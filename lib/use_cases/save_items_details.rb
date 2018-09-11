@@ -30,7 +30,10 @@ class SaveItemsDetails
   private
 
   def validation
-    missing_fields
+    errors = missing_fields
+    errors.push(:invalid_price) unless price_valid?
+    errors.push(:invalid_quantity) unless quantity_valid?
+    errors
   end
 
   def missing_fields
@@ -40,4 +43,15 @@ class SaveItemsDetails
     end
     errors
   end
+
+  def price_valid?
+    @item_details[:price].match(PRICE_REGEX)
+  end
+
+  def quantity_valid?
+    @item_details[:quantity].match(QUANTITY_REGEX)
+  end
+
+  PRICE_REGEX = /[0-9]+(\.[0-9]{2})?/
+  QUANTITY_REGEX = /[0-9]+(\.[0-9]+)?/
 end
