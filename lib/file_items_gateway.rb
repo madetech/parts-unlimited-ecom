@@ -41,4 +41,10 @@ class FileItemsGateway
   def delete_all
     File.unlink(FILE_PATH) if File.exist?(FILE_PATH)
   end
+
+  def delete(index)
+    items = all
+    items.delete(items[index])
+    save(items)
+  end 
 end

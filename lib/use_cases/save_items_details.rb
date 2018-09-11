@@ -26,7 +26,7 @@ class SaveItemsDetails
 
     { successful: true, errors: [] }
   end
-
+  
   private
 
   def validation

@@ -164,6 +164,32 @@ describe 'place order' do
         expect(items[1].price).to eq('17.00')
         expect(items[1].quantity).to eq('10')
       end
+
+      it 'can delete the a item row by index' do
+        ordered_item1 = { id: '233', name: 'Bats', price: '12.00', quantity: '4' }
+        ordered_item2 = { id: '343', name: 'Buts', price: '17.00', quantity: '10' }
+        ordered_item3 = { id: '33', name: 'Bits', price: '1.00', quantity: '10' }
+
+        save_items_details.execute(item_details: ordered_item1)
+        save_items_details.execute(item_details: ordered_item2)
+        save_items_details.execute(item_details: ordered_item3)
+
+        items = items_gateway.all
+        expect(items.count).to eq(3)
+
+        items_gateway.delete(items.index(items[0]))
+        items = items_gateway.all
+        expect(items.count).to eq(2)
+
+        expect(items[0].id).to eq('343')
+        expect(items[0].name).to eq('Buts')
+        expect(items[0].price).to eq('17.00')
+        expect(items[0].quantity).to eq('10')
+        expect(items[1].id).to eq('33')
+        expect(items[1].name).to eq('Bits')
+        expect(items[1].price).to eq('1.00')
+        expect(items[1].quantity).to eq('10')
+      end
     end
 
     context 'given invalid items details' do
