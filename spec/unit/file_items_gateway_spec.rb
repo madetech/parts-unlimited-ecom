@@ -26,4 +26,8 @@ describe FileItemsGateway do
       expect(items.quantity).to eq('1')
     end
   end
+
+  it 'can delete the entire file' do
+    
+  end 
 end
