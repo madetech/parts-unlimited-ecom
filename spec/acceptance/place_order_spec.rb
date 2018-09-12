@@ -7,6 +7,8 @@ describe 'place order' do
   let(:items_gateway) { FileItemsGateway.new }
   let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: customer_gateway) }
   let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }
+  let(:calculate_total_cost) { CalculateTotalCost.new(items_gateway: items_gateway) }
+  let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost) }
 
   before(:each) { items_gateway.delete_all }
 
@@ -115,10 +117,10 @@ describe 'place order' do
         billing_phone_number: '07912345671',
         billing_email_address: 'barry@gmail.com'
       }
-      item1 = { id: '456', name: 'Drones', price: '144', quantity: '34' }
-      item2 = { id: '454', name: 'Uranium', price: '130', quantity: '100' }
-      item3 = { id: '767', name: 'ACHSDJVHJDWVVFWVYEUVFW', price: '10', quantity: '200000' }
-      item4 = { id: '999', name: 'Screws', price: '0.9', quantity: '2000' }
+      item1 = { id: '456', name: 'Drones', price: '144', quantity: '34', total: '4896.00' }
+      item2 = { id: '454', name: 'Uranium', price: '130', quantity: '100', total: '13000.00' }
+      item3 = { id: '767', name: 'ACHSDJVHJDWVVFWVYEUVFW', price: '10', quantity: '200000', total: '2000000.00'   }
+      item4 = { id: '999', name: 'Screws', price: '0.9', quantity: '2000', total: '1800.00' }
 
       save_customer_details.execute(customer_details: customer_details)
       save_items_details.execute(item_details: item1)
@@ -126,9 +128,8 @@ describe 'place order' do
       save_items_details.execute(item_details: item3)
       save_items_details.execute(item_details: item4)
 
-      view_summary = ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway)
       response = view_summary.execute
-      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4])
+      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4], net_total: '2019696.00' )
     end
   end
 
@@ -137,13 +138,13 @@ describe 'place order' do
       it 'stores the item details' do
         item_ordered = { id: '123', name: 'Bits', price: '5.00', quantity: '1' }
         save_items_details.execute(item_details: item_ordered)
+        
+        item = view_summary.execute[:items].first
 
-        item = items_gateway.all.first
-
-        expect(item.id).to eq('123')
-        expect(item.name).to eq('Bits')
-        expect(item.price).to eq('5.00')
-        expect(item.quantity).to eq('1')
+        expect(item[:id]).to eq('123')
+        expect(item[:name]).to eq('Bits')
+        expect(item[:price]).to eq('5.00')
+        expect(item[:quantity]).to eq('1')
       end
 
       it 'stores the multiple items details' do
@@ -153,16 +154,17 @@ describe 'place order' do
         save_items_details.execute(item_details: ordered_item1)
         save_items_details.execute(item_details: ordered_item2)
 
-        items = items_gateway.all
+        items = view_summary.execute[:items]
 
-        expect(items[0].id).to eq('233')
-        expect(items[0].name).to eq('Bats')
-        expect(items[0].price).to eq('12.00')
-        expect(items[0].quantity).to eq('4')
-        expect(items[1].id).to eq('343')
-        expect(items[1].name).to eq('Buts')
-        expect(items[1].price).to eq('17.00')
-        expect(items[1].quantity).to eq('10')
+
+        expect(items[0][:id]).to eq('233')
+        expect(items[0][:name]).to eq('Bats')
+        expect(items[0][:price]).to eq('12.00')
+        expect(items[0][:quantity]).to eq('4')
+        expect(items[1][:id]).to eq('343')
+        expect(items[1][:name]).to eq('Buts')
+        expect(items[1][:price]).to eq('17.00')
+        expect(items[1][:quantity]).to eq('10')
       end
 
       it 'can delete a item row by index' do
@@ -208,5 +210,35 @@ describe 'place order' do
         )
       end
     end
+
+    context 'calculating the total price of items' do
+
+      it 'would return a number as its total' do
+        ordered_item = { id: '233', name: 'Bats', price: '7.00', quantity: '4' }
+        save_items_details.execute(item_details: ordered_item)
+
+        response = calculate_total_cost.execute
+        expect(response).to eq('28.00')
+      end
+
+      it 'retrieves the total calculated cost of the summary' do
+        ordered_item1 = { id: '233', name: 'Bats', price: '12.00', quantity: '10' }
+        ordered_item2 = { id: '343', name: 'Bets', price: '1.20', quantity: '1' }
+        ordered_item3 = { id: '343', name: 'Bits', price: '5.00', quantity: '5' }
+        ordered_item4 = { id: '343', name: 'Bots', price: '4.30', quantity: '1' }
+        ordered_item5 = { id: '343', name: 'Buts', price: '4.00', quantity: '4' }
+
+        save_items_details.execute(item_details: ordered_item1)
+        save_items_details.execute(item_details: ordered_item2)
+        save_items_details.execute(item_details: ordered_item3)
+        save_items_details.execute(item_details: ordered_item4)
+        save_items_details.execute(item_details: ordered_item5)
+
+        response = calculate_total_cost.execute
+
+        expect(response).to eq('166.50')
+      end
+    end
+
   end
 end

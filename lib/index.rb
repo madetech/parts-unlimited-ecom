@@ -16,7 +16,8 @@ require './lib/domain/items'
 before do
   @customer_gateway = FileCustomerGateway.new
   @items_gateway = FileItemsGateway.new
-  view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway)
+  @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
+  view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost)
   @summary = view_summary.execute
 end
 
