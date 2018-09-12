@@ -17,7 +17,7 @@ class SaveItemsDetails
       name: @item_details[:name],
       price: @item_details[:price],
       quantity: @item_details[:quantity]
-    ) 
+    )
 
     all_items = @items_gateway.all
     all_items.push(item_builder.build)
@@ -26,7 +26,7 @@ class SaveItemsDetails
 
     { successful: true, errors: [] }
   end
-  
+
   private
 
   def validation

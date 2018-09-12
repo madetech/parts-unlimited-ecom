@@ -128,7 +128,7 @@ describe 'place order' do
 
       view_summary = ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway)
       response = view_summary.execute
-      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4] )
+      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4])
     end
   end
 
@@ -177,7 +177,7 @@ describe 'place order' do
         items = items_gateway.all
         expect(items.count).to eq(3)
 
-        items_gateway.delete_row(0)
+        items_gateway.delete_item_at(0)
         items = items_gateway.all
         expect(items.count).to eq(2)
 
