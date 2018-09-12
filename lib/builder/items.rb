@@ -11,7 +11,7 @@ module Builder
       item
     end
 
-    def from(id:, name:, price:, quantity: )
+    def from(id:, name:, price:, quantity:)
       @item_details = {
         id: id,
         name: name,
