@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'bigdecimal'
 
 module Builder
@@ -18,7 +19,7 @@ module Builder
         id: id,
         name: name,
         price: price,
-        quantity: quantity,
+        quantity: quantity
       }
     end
 
@@ -29,6 +30,5 @@ module Builder
     def calculate_cost
       BigDecimal(item_details[:price]) * BigDecimal(item_details[:quantity])
     end
-
   end
 end

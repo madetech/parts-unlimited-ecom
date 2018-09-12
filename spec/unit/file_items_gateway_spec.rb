@@ -14,7 +14,7 @@ describe FileItemsGateway do
   it 'can get a row of item details' do
     item_builder = Builder::Item.new
     item_builder.from(id: '108', name: 'Jeremy', price: '28.00', quantity: '1')
- 
+
     item = item_builder.build
 
     file_items_gateway.save([item])
@@ -56,5 +56,5 @@ describe FileItemsGateway do
       expect(items[1]).to eq(nil)
       expect(items[2]).to eq(nil)
     end
-  end 
+  end
 end

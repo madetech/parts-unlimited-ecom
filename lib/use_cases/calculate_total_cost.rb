@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 
 class CalculateTotalCost
@@ -7,7 +9,7 @@ class CalculateTotalCost
 
   def execute
     @items = @items_gateway.all
-    '%.2f'%order_total
+    format('%.2f', order_total)
   end
 
   private
