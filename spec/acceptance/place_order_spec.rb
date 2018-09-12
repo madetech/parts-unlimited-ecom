@@ -119,7 +119,7 @@ describe 'place order' do
       }
       item1 = { id: '456', name: 'Drones', price: '144', quantity: '34', total: '4896.00' }
       item2 = { id: '454', name: 'Uranium', price: '130', quantity: '100', total: '13000.00' }
-      item3 = { id: '767', name: 'ACHSDJVHJDWVVFWVYEUVFW', price: '10', quantity: '200000', total: '2000000.00'   }
+      item3 = { id: '767', name: 'ACHSDJVHJDWVVFWVYEUVFW', price: '10', quantity: '200000', total: '2000000.00' }
       item4 = { id: '999', name: 'Screws', price: '0.9', quantity: '2000', total: '1800.00' }
 
       save_customer_details.execute(customer_details: customer_details)
@@ -129,7 +129,7 @@ describe 'place order' do
       save_items_details.execute(item_details: item4)
 
       response = view_summary.execute
-      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4], net_total: '2019696.00' )
+      expect(response).to eq(customer: customer_details, items: [item1, item2, item3, item4], net_total: '2019696.00')
     end
   end
 
@@ -138,7 +138,7 @@ describe 'place order' do
       it 'stores the item details' do
         item_ordered = { id: '123', name: 'Bits', price: '5.00', quantity: '1' }
         save_items_details.execute(item_details: item_ordered)
-        
+
         item = view_summary.execute[:items].first
 
         expect(item[:id]).to eq('123')
@@ -155,7 +155,6 @@ describe 'place order' do
         save_items_details.execute(item_details: ordered_item2)
 
         items = view_summary.execute[:items]
-
 
         expect(items[0][:id]).to eq('233')
         expect(items[0][:name]).to eq('Bats')
@@ -212,7 +211,6 @@ describe 'place order' do
     end
 
     context 'calculating the total price of items' do
-
       it 'would return a number as its total' do
         ordered_item = { id: '233', name: 'Bats', price: '7.00', quantity: '4' }
         save_items_details.execute(item_details: ordered_item)
@@ -239,6 +237,5 @@ describe 'place order' do
         expect(response).to eq('166.50')
       end
     end
-
   end
 end

@@ -40,7 +40,7 @@ class ViewSummary
         name: item.name,
         price: item.price,
         quantity: item.quantity,
-        total: '%.2f'%item.total
+        total: format('%.2f', item.total)
       }
     end
     items
