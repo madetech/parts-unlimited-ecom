@@ -2,6 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="progress-bar.css"/>
   </head>
   <body style="font-family: Helvetica, Arial, Sans-Serif;" class="bg-light">
@@ -30,13 +32,13 @@
               <div class="col-4 rounded pt-2 bg-white" >
                 <h3 style="text-align:center;">Billing Details</h3>
                 <br/>
-                <p> <%= @customer[:billing_address_line1] %> <br/> 
-                  <%= @customer[:billing_address_line2] %>  <br/> 
-                  <%= @customer[:billing_city] %>  <br/> 
-                  <%= @customer[:billing_county] %>  <br/> 
+                <p> <%= @customer[:billing_address_line1] %> <br/>
+                  <%= @customer[:billing_address_line2] %>  <br/>
+                  <%= @customer[:billing_city] %>  <br/>
+                  <%= @customer[:billing_county] %>  <br/>
                   <%= @customer[:billing_postcode] %>  <br/> <br/>
-                  <%= @customer[:billing_phone_number] %>  <br/> 
-                  <%= @customer[:billing_email_address] %> 
+                  <%= @customer[:billing_phone_number] %>  <br/>
+                  <%= @customer[:billing_email_address] %>
                 </p>
               </div>
               <div class='col-1 border-right '></div>
@@ -44,13 +46,13 @@
               <div class="col-4 pt-2 bg-white rounded" >
                 <h3 style="text-align:center;">Shipping Details</h3>
                 <br/>
-                <p> <%= @customer[:shipping_address_line1] %> <br/> 
-                  <%= @customer[:shipping_address_line2] %>  <br/> 
-                  <%= @customer[:shipping_city] %>  <br/> 
-                  <%= @customer[:shipping_county] %>  <br/> 
+                <p> <%= @customer[:shipping_address_line1] %> <br/>
+                  <%= @customer[:shipping_address_line2] %>  <br/>
+                  <%= @customer[:shipping_city] %>  <br/>
+                  <%= @customer[:shipping_county] %>  <br/>
                   <%= @customer[:shipping_postcode] %>  <br/> <br/>
-                  <%= @customer[:shipping_phone_number] %>  <br/> 
-                  <%= @customer[:shipping_email_address] %> 
+                  <%= @customer[:shipping_phone_number] %>  <br/>
+                  <%= @customer[:shipping_email_address] %>
                 </p>
               </div>
               <div class='col-1'></div>
@@ -88,7 +90,7 @@
       <div class="row">
         <div class="col p-4 pb-5">
           <a role="button" href="/items-details" class="btn btn-secondary ml-3">Back</a>
-          <a role="button" href="/confirmation" class="btn btn-success float-right mr-3">Confirm Order</a>
+          <a role="button" href="/confirmation" class="btn btn-success float-right mr-3 disabled" aria-disabled="true">Confirm Order</a>
         </div>
       </div>
     </div>
