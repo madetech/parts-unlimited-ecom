@@ -27,7 +27,7 @@
   height: 30px;
   content: counter(step);
   counter-increment: step;
-  line-height: 30px;
+  line-height: 28px;
   border: 2px solid var(--non-highlighted);
   display: block;
   text-align: center;

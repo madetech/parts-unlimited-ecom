@@ -2,91 +2,95 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="progress-bar.css"/>
   </head>
   <body style="font-family: Helvetica, Arial, Sans-Serif;" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col pt-3">
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Order Summary</div>
+          <div class="container-progress">
+            <ul class="progressbar">
+              <li>Customer</li>
+              <li>Items</li>
+              <li class="active">Summary</li>
+            </ul>
           </div>
         </div>
-      </div>
-  <div class="row">
-  <div class="col pt-5">
-  <h1 style="text-align:center;"><%= @customer[:customer_name] %>'s Order Summary</h1>
-  </div> 
-  </div>
-  <div class="row"> 
-  <div class="col">
-    <div class="container">
-      <div class="row p-5">
-      <div class='col-1'></div>
-        <div class="col-4 rounded pt-2 bg-white" >
-        <h3 style="text-align:center;">Billing Details</h3>
-        <br/>
-        <p> <%= @customer[:billing_address_line1] %> <br/> 
-        <%= @customer[:billing_address_line2] %>  <br/> 
-        <%= @customer[:billing_city] %>  <br/> 
-        <%= @customer[:billing_county] %>  <br/> 
-        <%= @customer[:billing_postcode] %>  <br/> <br/>
-        <%= @customer[:billing_phone_number] %>  <br/> 
-        <%= @customer[:billing_email_address] %> </p>
-        </div>
-        <div class='col-1 border-right '></div>
-        <div class='col-1'></div>
-        <div class="col-4 pt-2 bg-white rounded" >
-          <h3 style="text-align:center;">Shipping Details</h3>
-        <br/>
-        <p> <%= @customer[:shipping_address_line1] %> <br/> 
-        <%= @customer[:shipping_address_line2] %>  <br/> 
-        <%= @customer[:shipping_city] %>  <br/> 
-        <%= @customer[:shipping_county] %>  <br/> 
-        <%= @customer[:shipping_postcode] %>  <br/> <br/>
-        <%= @customer[:shipping_phone_number] %>  <br/> 
-        <%= @customer[:shipping_email_address] %> </p>
-        </div>
-        <div class='col-1'></div>
       </div>
       <div class="row">
-        <div class="col" >
-
-      <table class="table table-striped border rounded bg-white">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @items.each do |item| %>
-          <tr>
-            <td style="width: 10%;"><%= item[:id] %></td>
-            <td style="width: 40%;" ><%= item[:name] %></td>
-            <td style="width: 40%;" ><%= item[:price] %></td>
-            <td style="width: 10%;" ><%= item[:quantity] %></td>
-            <td style="width: 10%;" ><%= item[:total] %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <h6 class="float-right p-3"> Net Total: £<%= @net_total %> </h6>
-
+        <div class="col pt-5">
+          <h1 style="text-align:center;"><%= @customer[:customer_name] %>'s Order Summary</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="container">
+            <div class="row p-5">
+              <div class='col-1'></div>
+              <div class="col-4 rounded pt-2 bg-white" >
+                <h3 style="text-align:center;">Billing Details</h3>
+                <br/>
+                <p> <%= @customer[:billing_address_line1] %> <br/> 
+                  <%= @customer[:billing_address_line2] %>  <br/> 
+                  <%= @customer[:billing_city] %>  <br/> 
+                  <%= @customer[:billing_county] %>  <br/> 
+                  <%= @customer[:billing_postcode] %>  <br/> <br/>
+                  <%= @customer[:billing_phone_number] %>  <br/> 
+                  <%= @customer[:billing_email_address] %> 
+                </p>
+              </div>
+              <div class='col-1 border-right '></div>
+              <div class='col-1'></div>
+              <div class="col-4 pt-2 bg-white rounded" >
+                <h3 style="text-align:center;">Shipping Details</h3>
+                <br/>
+                <p> <%= @customer[:shipping_address_line1] %> <br/> 
+                  <%= @customer[:shipping_address_line2] %>  <br/> 
+                  <%= @customer[:shipping_city] %>  <br/> 
+                  <%= @customer[:shipping_county] %>  <br/> 
+                  <%= @customer[:shipping_postcode] %>  <br/> <br/>
+                  <%= @customer[:shipping_phone_number] %>  <br/> 
+                  <%= @customer[:shipping_email_address] %> 
+                </p>
+              </div>
+              <div class='col-1'></div>
+            </div>
+            <div class="row">
+              <div class="col" >
+                <table class="table table-striped border rounded bg-white">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @items.each do |item| %>
+                    <tr>
+                      <td style="width: 10%;"><%= item[:id] %></td>
+                      <td style="width: 40%;" ><%= item[:name] %></td>
+                      <td style="width: 40%;" ><%= item[:price] %></td>
+                      <td style="width: 10%;" ><%= item[:quantity] %></td>
+                      <td style="width: 10%;" ><%= item[:total] %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <h6 class="float-right p-3"> Net Total: £<%= @net_total %> </h6>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col p-4 pb-5">
+          <a role="button" href="/items-details" class="btn btn-secondary ml-3">Back</a>
+          <a role="button" href="/confirmation" class="btn btn-success float-right mr-3">Confirm Order</a>
+        </div>
+      </div>
     </div>
-    </div>
-  </div>
-  <div class="row">
-  <div class="col p-4 pb-5">
-    <a role="button" href="/items-details" class="btn btn-secondary ml-3">Back</a>
-    <a role="button" href="/confirmation" class="btn btn-success float-right mr-3">Confirm Order</a>
-    </div> 
-   </div>
-  </div>
-
-
   </body>
+</html>
