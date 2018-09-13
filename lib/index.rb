@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require 'file_customer_gateway'
+require './lib/file_customer_gateway'
 require 'file_items_gateway'
 require 'use_cases/delete_item'
 require 'use_cases/calculate_total_cost'
