@@ -2,36 +2,38 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require './lib/file_customer_gateway'
-require './lib/file_items_gateway'
-require './lib/use_cases/save_customer_details'
-require './lib/use_cases/save_items_details'
-require './lib/use_cases/view_summary'
-require './lib/builder/customer'
-require './lib/builder/items'
-require './lib/domain/address'
-require './lib/domain/customer'
-require './lib/domain/items'
+require 'file_customer_gateway'
+require 'file_items_gateway'
+require 'use_cases/delete_item'
+require 'use_cases/calculate_total_cost'
+require 'use_cases/save_customer_details'
+require 'use_cases/save_items_details'
+require 'use_cases/view_summary'
+require 'builder/customer'
+require 'builder/items'
+require 'domain/address'
+require 'domain/customer'
+require 'domain/items'
 
 before do
   @customer_gateway = FileCustomerGateway.new
   @items_gateway = FileItemsGateway.new
+  @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
+  @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost)
+  @delete_item = DeleteItem.new(items_gateway: @items_gateway)
 end
 
 get '/' do
+  @items_gateway.delete_all
+  @customer_gateway.delete_all
   redirect '/customer-details'
 end
 
 get '/customer-details' do
-  @customer_details = {}
+  summary = @view_summary.execute
+  @customer_details = summary[:customer]
   @errors = []
   erb :customer_details
-end
-
-get '/items-details' do
-  @items_details = []
-  @errors = []
-  erb :items_details
 end
 
 post '/customer-details' do
@@ -75,10 +77,38 @@ post '/customer-details' do
   erb :customer_details
 end
 
+get '/items-details' do
+  summary = @view_summary.execute
+  @net_total = summary[:net_total]
+  @items = summary[:items]
+  @errors = []
+  erb :items_details
+end
+
+post '/items-details' do
+  price = params.fetch(:price)
+  id = params.fetch(:id)
+  name = params.fetch(:name)
+  quantity = params.fetch(:quantity)
+
+  item_row = { id: id, name: name, price: price, quantity: quantity }
+
+  save_items_details = SaveItemsDetails.new(items_gateway: @items_gateway)
+  save_items_details.execute(item_details: item_row)
+
+  redirect '/items-details'
+end
+
+post '/item-delete/:index' do
+  index = params[:index]
+  @delete_item.execute(index: index.to_i)
+  redirect '/items-details'
+end
+
 get '/order-summary' do
-  view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway)
-  summary = view_summary.execute
+  summary = @view_summary.execute
   @customer = summary[:customer]
   @items = summary[:items]
+  @net_total = summary[:net_total]
   erb :summary
 end

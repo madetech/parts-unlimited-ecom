@@ -8,6 +8,8 @@ require 'domain/items'
 require 'use_cases/save_customer_details'
 require 'use_cases/view_summary'
 require 'use_cases/save_items_details'
+require 'use_cases/calculate_total_cost'
+require 'use_cases/delete_item'
 require 'file_customer_gateway'
 require 'file_items_gateway'
 require 'rspec'
@@ -16,6 +18,9 @@ require 'capybara/dsl'
 require 'index'
 
 RSpec.configure do |config|
+  config.filter_run_when_matching :focus
+  config.run_all_when_everything_filtered
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

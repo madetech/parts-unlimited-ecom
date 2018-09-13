@@ -7,28 +7,44 @@ class FileItemsGateway
 
   def all
     return [] unless File.exist?(FILE_PATH)
-    File.open(FILE_PATH, 'r') do |file|
-      item_builder = ItemBuilder::Item.new
-      item_builder.items = JSON.parse(file.read, symbolize_names: true)
-      [item_builder.build]
+    items = File.open(FILE_PATH, 'r') do |file|
+      JSON.parse(file.read, symbolize_names: true)
     end
+
+    items.map! do |item_details|
+      item_builder = Builder::Item.new
+      item_builder.from(
+        id: item_details[:id],
+        name: item_details[:name],
+        price: item_details[:price],
+        quantity: item_details[:quantity]
+      )
+      item_builder.build
+    end
+    items
   end
 
-  def save(item)
-    item.map! do |part|
+  def save(items)
+    items.map! do |item|
       {
-        id: part.id,
-        name: part.name,
-        price: part.price,
-        quantity: part.quantity
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
       }
     end
     File.open(FILE_PATH, 'w') do |file|
-      file.write(item.to_json)
+      file.write(items.to_json)
     end
   end
 
   def delete_all
     File.unlink(FILE_PATH) if File.exist?(FILE_PATH)
+  end
+
+  def delete_item_at(index)
+    items = all
+    items.delete_at(index)
+    save(items)
   end
 end

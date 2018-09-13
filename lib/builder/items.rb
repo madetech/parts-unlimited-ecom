@@ -1,39 +1,34 @@
 # frozen_string_literal: true
 
-module ItemBuilder
+require 'bigdecimal'
+
+module Builder
   class Item
-    attr_accessor :items,
-                  :id,
-                  :name,
-                  :price,
-                  :quantity
-
     def build
-      copy_from_individual_fields unless items_exist?
-      items.map! do |part|
-        item = ::Item.new
-        item.id = part[:id]
-        item.name = part[:name]
-        item.price = part[:price]
-        item.quantity = part[:quantity]
-        item
-      end
-      items
+      item = ::Item.new
+      item.id = item_details[:id]
+      item.name = item_details[:name]
+      item.price = item_details[:price]
+      item.quantity = item_details[:quantity]
+      item.total = calculate_cost
+      item
     end
 
-    private
-
-    def items_exist?
-      !items.nil?
-    end
-
-    def copy_from_individual_fields
-      @items = {
+    def from(id:, name:, price:, quantity:)
+      @item_details = {
         id: id,
         name: name,
         price: price,
         quantity: quantity
       }
+    end
+
+    private
+
+    attr_accessor :item_details
+
+    def calculate_cost
+      BigDecimal(item_details[:price]) * BigDecimal(item_details[:quantity])
     end
   end
 end
