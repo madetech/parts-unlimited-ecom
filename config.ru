@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-$: << "./lib"
+$LOAD_PATH << './lib'
 require './lib/index'
 run Sinatra::Application

@@ -43,7 +43,7 @@ describe SaveItemsDetails do
       successful: false,
       errors: [:invalid_price]
     )
-  end 
+  end
 
   it 'returns an error for invalid quantity' do
     response = use_case.execute(item_details: { id: '12', name: 'Bobs', price: '12.00', quantity: 'Bots' })
@@ -51,5 +51,5 @@ describe SaveItemsDetails do
       successful: false,
       errors: [:invalid_quantity]
     )
-  end 
+  end
 end
