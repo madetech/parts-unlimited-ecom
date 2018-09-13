@@ -91,12 +91,17 @@ post '/items-details' do
   name = params.fetch(:name)
   quantity = params.fetch(:quantity)
 
-  item_row = { id: id, name: name, price: price, quantity: quantity }
+  @item_row = { id: id, name: name, price: price, quantity: quantity }
 
   save_items_details = SaveItemsDetails.new(items_gateway: @items_gateway)
-  save_items_details.execute(item_details: item_row)
+  response = save_items_details.execute(item_details: @item_row)
+  summary = @view_summary.execute
+  @net_total = summary[:net_total]
+  @items = summary[:items]
+  @errors = response[:errors]
 
-  redirect '/items-details'
+  redirect '/items-details' if response[:successful]
+  erb :items_details
 end
 
 post '/item-delete/:index' do
