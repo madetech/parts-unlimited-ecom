@@ -57,9 +57,9 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
-          <form method="POST" action="/items-details">
+          <form method="POST" action="/items-details" id="new-row">
             <div class="form-row">
-              <div style="width:14%;" class="p-1 pl-3">  
+              <div style="width:14%;" class="p-1 pl-3">
                 <% if @errors.include?(:missing_id)%>
                 <input type="text" id="id" name="id" class="form-control is-invalid" placeholder="ID"/>
                 <% elsif @item_row.nil? %>
@@ -68,7 +68,7 @@
                 <input type="text" id="id" name="id" class="form-control" value="<%= @item_row[:id]%>"/>
                 <% end %>
               </div>
-              <div style="width:45%;" class="p-1">  
+              <div style="width:45%;" class="p-1">
                 <%if @errors.include?(:missing_name)%>
                 <input type="text" id="name" name="name" class="form-control is-invalid" placeholder="Name"/>
                 <% elsif @item_row.nil? %>
