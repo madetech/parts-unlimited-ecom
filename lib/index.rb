@@ -17,7 +17,7 @@ require 'domain/items'
 
 helpers do
   def first_error?(error)
-    @errors[0]==error
+    @errors[0] == error
   end
 end
 
@@ -80,7 +80,6 @@ post '/customer-details' do
   save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
   response = save_customer_details.execute(customer_details: @customer_details)
   @errors = response[:errors]
-
   return redirect '/items-details' if response[:successful]
 
   erb :customer_details

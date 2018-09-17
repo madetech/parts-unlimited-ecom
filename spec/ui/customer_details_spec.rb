@@ -30,7 +30,7 @@ describe 'customer details', type: :feature do
       fill_in('billing_phone_number', with: '01982371234')
       fill_in('billing_email_address', with: 'fake2@gmail.com')
     end
-    expect(page).to have_css("input[autofocus]")
+    expect(page).to have_css('input[autofocus]')
   end
 
   it 'accepts a customer name' do

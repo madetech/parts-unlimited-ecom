@@ -5,6 +5,17 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="progress-bar.css"/>
+    <script>
+      $(document).ready(function () {
+        $(".same-address").click(function () {
+            if ($(this).is(":checked")) {
+                $(".to-hide").hide();
+            } else {
+                $(".to-hide").show();
+            }
+        });
+      });
+    </script> 
   </head>
   <body class="bg-light" >
     <div class="container pr-3 pl-3 pb-3">
@@ -30,7 +41,7 @@
               <label for="shipping-customer-name">Shipping Name<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_customer_name)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -46,7 +57,7 @@
               <label for="shipping-address-line1">Address Line 1<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_address_line1)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -72,7 +83,7 @@
               <label for="shipping-city">City<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_city)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -88,7 +99,7 @@
               <label for="shipping-county">County<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_county)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -104,7 +115,7 @@
               <label for="shipping-postcode">Postcode<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_postcode) || first_error?(:invalid_shipping_postcode)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -123,7 +134,7 @@
               <label for="shipping-phone-number">Phone Number<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_phone_number) || first_error?(:invalid_shipping_phone_number)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="tel"
                 class="form-control"
@@ -142,7 +153,7 @@
               <label for="shipping-email">Email<span class="text-danger">*</span></label>
               <input
                 <%if first_error?(:missing_shipping_email_address) || first_error?(:missing_shipping_email_address)%>
-                  autofocus
+                autofocus
                 <%end%>
                 type="text"
                 class="form-control"
@@ -158,136 +169,150 @@
               <%end%>
             </div>
             <h3 class="pt-1 pb-1"> Billing Details </h3>
-            <div class="form-group">
-              <label for="billing-customer-name">Billing Name<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_customer_name)%>
-                  autofocus
-                <%end%>
-                type="text"
-                class="form-control"
-                id="billing-customer-name"
-                name="billing_customer_name"
-                value="<%= @customer_details[:billing_customer_name] %>"
+            <div class="form-check p-2 pl-4 pb-3">
+              <input 
+                class="form-check-input same-address" 
+                type="checkbox" 
+                value="true" 
+                id="same-address" 
+                name="same_address"
                 />
-              <%if @errors.include?(:missing_billing_customer_name)%>
-              <p class="text-danger">Please enter a billing name</p>
-              <%end%>
+              <label class="form-check-label same-address" for="same-address">
+              Billing details are the same as shipping details.
+              </label>
             </div>
-            <div class="form-group">
-              <label for="billing-address-line1">Address Line 1<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_address_line1)%>
+            <div class="to-hide">
+              <div class="form-group">
+                <label for="billing-customer-name">Billing Name<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_customer_name)%>
                   autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-customer-name"
+                  name="billing_customer_name"
+                  value="<%= @customer_details[:billing_customer_name] %>"
+                  />
+                <%if @errors.include?(:missing_billing_customer_name)%>
+                <p class="text-danger">Please enter a billing name</p>
                 <%end%>
-                type="text"
-                class="form-control"
-                id="billing-address-line1"
-                name="billing_address_line1"
-                value="<%= @customer_details[:billing_address_line1] %>"
-                />
-              <%if @errors.include?(:missing_billing_address_line1)%>
-              <p class="text-danger">Please enter a billing address</p>
-              <%end%>
-            </div>
-            <div class="form-group">
-              <label for="billing-address-line2">Address Line 2</label>
-              <input
-                type="text"
-                class="form-control"
-                id="billing-address-line2"
-                name="billing_address_line2"
-                value="<%= @customer_details[:billing_address_line2] %>"
-                />
-            </div>
-            <div class="form-group">
-              <label for="billing-city">City<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_city)%>
+              </div>
+              <div class="form-group">
+                <label for="billing-address-line1">Address Line 1<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_address_line1)%>
                   autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-address-line1"
+                  name="billing_address_line1"
+                  value="<%= @customer_details[:billing_address_line1] %>"
+                  />
+                <%if @errors.include?(:missing_billing_address_line1)%>
+                <p class="text-danger">Please enter a billing address</p>
                 <%end%>
-                type="text"
-                class="form-control"
-                id="billing-city"
-                name="billing_city"
-                value="<%= @customer_details[:billing_city] %>"
-                />
-              <%if @errors.include?(:missing_billing_city)%>
-              <p class="text-danger">Please enter a billing city</p>
-              <%end%>
-            </div>
-            <div class="form-group">
-              <label for="billing-county">County<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_county)%>
+              </div>
+              <div class="form-group">
+                <label for="billing-address-line2">Address Line 2</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="billing-address-line2"
+                  name="billing_address_line2"
+                  value="<%= @customer_details[:billing_address_line2] %>"
+                  />
+              </div>
+              <div class="form-group">
+                <label for="billing-city">City<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_city)%>
                   autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-city"
+                  name="billing_city"
+                  value="<%= @customer_details[:billing_city] %>"
+                  />
+                <%if @errors.include?(:missing_billing_city)%>
+                <p class="text-danger">Please enter a billing city</p>
                 <%end%>
-                type="text"
-                class="form-control"
-                id="billing-county"
-                name="billing_county"
-                value="<%= @customer_details[:billing_county] %>"
-                />
-              <%if @errors.include?(:missing_billing_county)%>
-              <p class="text-danger">Please enter a billing county</p>
-              <%end%>
-            </div>
-            <div class="form-group">
-              <label for="billing-postcode">Postcode<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_postcode) || first_error?(:invalid_billing_postcode)%>
+              </div>
+              <div class="form-group">
+                <label for="billing-county">County<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_county)%>
                   autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-county"
+                  name="billing_county"
+                  value="<%= @customer_details[:billing_county] %>"
+                  />
+                <%if @errors.include?(:missing_billing_county)%>
+                <p class="text-danger">Please enter a billing county</p>
                 <%end%>
-                type="text"
-                class="form-control"
-                id="billing-postcode"
-                name="billing_postcode"
-                pattern="^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$"
-                value="<%= @customer_details[:billing_postcode] %>"
-                />
-              <%if @errors.include?(:missing_billing_postcode)%>
-              <p class="text-danger">Please enter a billing postcode</p>
-              <%elsif @errors.include?(:invalid_billing_postcode)%>
-              <p class="text-danger">This postcode is invalid</p>
-              <%end%>
-            </div>
-            <div class="form-group">
-              <label for="billing-phone-number">Phone Number<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_phone_number) || first_error?(:invalid_billing_phone_number)%>
+              </div>
+              <div class="form-group">
+                <label for="billing-postcode">Postcode<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_postcode) || first_error?(:invalid_billing_postcode)%>
                   autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-postcode"
+                  name="billing_postcode"
+                  pattern="^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$"
+                  value="<%= @customer_details[:billing_postcode] %>"
+                  />
+                <%if @errors.include?(:missing_billing_postcode)%>
+                <p class="text-danger">Please enter a billing postcode</p>
+                <%elsif @errors.include?(:invalid_billing_postcode)%>
+                <p class="text-danger">This postcode is invalid</p>
                 <%end%>
-                type="tel"
-                class="form-control"
-                id="billing-phone-number"
-                name="billing_phone_number"
-                pattern="^\A[+]?\d{11,12}\z$"
-                value="<%= @customer_details[:billing_phone_number] %>"
-                />
-              <%if @errors.include?(:missing_billing_phone_number)%>
-              <p class="text-danger">Please enter a billing phone number</p>
-              <%elsif @errors.include?(:invalid_billing_phone_number)%>
-              <p class="text-danger">This phone number is invalid</p>
-              <%end%>
-            </div>
-            <div class="form-group">
-              <label for="billing-email">Email<span class="text-danger">*</span></label>
-              <input
-                <%if first_error?(:missing_billing_email_address) || first_error?(:invalid_billing_email_address)%>
+              </div>
+              <div class="form-group">
+                <label for="billing-phone-number">Phone Number<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_phone_number) || first_error?(:invalid_billing_phone_number)%>
                   autofocus
+                  <%end%>
+                  type="tel"
+                  class="form-control"
+                  id="billing-phone-number"
+                  name="billing_phone_number"
+                  pattern="^\A[+]?\d{11,12}\z$"
+                  value="<%= @customer_details[:billing_phone_number] %>"
+                  />
+                <%if @errors.include?(:missing_billing_phone_number)%>
+                <p class="text-danger">Please enter a billing phone number</p>
+                <%elsif @errors.include?(:invalid_billing_phone_number)%>
+                <p class="text-danger">This phone number is invalid</p>
                 <%end%>
-                type="text"
-                class="form-control"
-                id="billing-email"
-                name="billing_email_address"
-                pattern="^[^@\W]+?@\w+?\..+?$"
-                value="<%= @customer_details[:billing_email_address] %>"
-                />
-              <%if @errors.include?(:missing_billing_email_address)%>
-              <p class="text-danger">Please enter a billing email</p>
-              <%elsif @errors.include?(:invalid_billing_email_address)%>
-              <p class="text-danger">This email is invalid</p>
-              <%end%>
+              </div>
+              <div class="form-group">
+                <label for="billing-email">Email<span class="text-danger">*</span></label>
+                <input
+                  <%if first_error?(:missing_billing_email_address) || first_error?(:invalid_billing_email_address)%>
+                  autofocus
+                  <%end%>
+                  type="text"
+                  class="form-control"
+                  id="billing-email"
+                  name="billing_email_address"
+                  pattern="^[^@\W]+?@\w+?\..+?$"
+                  value="<%= @customer_details[:billing_email_address] %>"
+                  />
+                <%if @errors.include?(:missing_billing_email_address)%>
+                <p class="text-danger">Please enter a billing email</p>
+                <%elsif @errors.include?(:invalid_billing_email_address)%>
+                <p class="text-danger">This email is invalid</p>
+                <%end%>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary pt-1 pb-1 float-right">Next</button>
           </form>

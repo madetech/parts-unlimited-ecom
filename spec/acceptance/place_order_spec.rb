@@ -9,8 +9,12 @@ describe 'place order' do
   let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }
   let(:calculate_total_cost) { CalculateTotalCost.new(items_gateway: items_gateway) }
   let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost) }
+  let(:duplicate_address) { DuplicateAddress.new(save_customer_details: save_customer_details) }
 
-  before(:each) { items_gateway.delete_all }
+  before(:each) do
+    items_gateway.delete_all
+    customer_gateway.delete_all
+  end
 
   context 'saving customer details' do
     context 'given valid customer details' do
@@ -98,6 +102,42 @@ describe 'place order' do
             ]
           )
         )
+      end
+    end
+
+    context 'given a shipping address to be duplicated' do
+      it 'duplicates then stores the address' do
+        customer_details = {
+          shipping_customer_name: 'Harry',
+          shipping_address_line1: 'Boo',
+          shipping_address_line2: 'Scary',
+          shipping_city: 'CatVille',
+          shipping_county: 'GLondon',
+          shipping_postcode: 'SE1 0SW',
+          shipping_phone_number: '07912345671',
+          shipping_email_address: 'barry@gmail.com'
+        }
+        response = duplicate_address.execute(customer_details: customer_details)
+        summary = view_summary.execute
+        expect(response).to eq(errors: [], successful: true)
+        expect(summary[:customer]).to eq(customer_details)
+      end
+
+      it 'wont save invalid customer details after duplication' do
+        customer_details = {
+          shipping_customer_name: 'Harry',
+          shipping_address_line1: 'Boo',
+          shipping_address_line2: 'Scary',
+          shipping_city: '',
+          shipping_county: 'GLondon',
+          shipping_postcode: 'SE1 0SW',
+          shipping_phone_number: '07912345671',
+          shipping_email_address: 'barry@gmail.com'
+        }
+        response = duplicate_address.execute(customer_details: customer_details)
+        summary = view_summary.execute
+        expect(response).to eq(errors: %i[missing_shipping_city missing_billing_city], successful: false)
+        expect(summary[:customer]).to eq(nil)
       end
     end
   end
