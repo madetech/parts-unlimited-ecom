@@ -45,6 +45,14 @@ describe SaveItemsDetails do
     )
   end
 
+  it 'returns an error for a different invalid price' do
+    response = use_case.execute(item_details: { id: '12', name: 'Bobs', price: '10.90l', quantity: '10' })
+    expect(response).to eq(
+      successful: false,
+      errors: [:invalid_price]
+    )
+  end
+
   it 'returns an error for invalid quantity' do
     response = use_case.execute(item_details: { id: '12', name: 'Bobs', price: '12.00', quantity: 'Bots' })
     expect(response).to eq(
