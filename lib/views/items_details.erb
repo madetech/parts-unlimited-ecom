@@ -80,7 +80,7 @@
               </div>
               <div class="p-1 width-10">
                 <% if @errors.include?(:missing_price) || @errors.include?(:invalid_price)%>
-                <input type="text" id="price" name="price" class="form-control is-invalid" placeholder="Price"/>
+                <input type="text" pattern="(^\d+\.\d+$|^\d+$)" id="price" name="price" class="form-control is-invalid" placeholder="Price"/>
                 <% elsif @item_row.nil? %>
                 <input type="text" id="price" name="price" class="form-control" placeholder="Price"/>
                 <% else %>
