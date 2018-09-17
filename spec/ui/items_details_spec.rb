@@ -30,9 +30,9 @@ describe 'items details', type: :feature do
       fill_in('price', with: '7.20')
       fill_in('quantity', with: '9')
     end
-    expect(page).to have_no_content('Part')
-    expect(page).to have_no_content('7.20')
-    expect(page).to have_no_content('9')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('7.20')
+    expect(page).not_to have_content('9')
   end
 
   it 'blocks an empty name' do
@@ -41,9 +41,9 @@ describe 'items details', type: :feature do
       fill_in('price', with: '7.20')
       fill_in('quantity', with: '9')
     end
-    expect(page).to have_no_content('567')
-    expect(page).to have_no_content('7.20')
-    expect(page).to have_no_content('9')
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('7.20')
+    expect(page).not_to have_content('9')
   end
 
   it 'blocks an empty price' do
@@ -52,9 +52,9 @@ describe 'items details', type: :feature do
       fill_in('name', with: 'Part')
       fill_in('quantity', with: '9')
     end
-    expect(page).to have_no_content('567')
-    expect(page).to have_no_content('Part')
-    expect(page).to have_no_content('9')
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('9')
   end
 
   it 'blocks an empty quantity' do
@@ -63,9 +63,9 @@ describe 'items details', type: :feature do
       fill_in('name', with: 'Part')
       fill_in('price', with: '7.20')
     end
-    expect(page).to have_no_content('567')
-    expect(page).to have_no_content('Part')
-    expect(page).to have_no_content('7.20')
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('7.20')
   end
 
   it 'blocks an invalid price' do
@@ -75,10 +75,10 @@ describe 'items details', type: :feature do
       fill_in('price', with: 'twenty')
       fill_in('quantity', with: '9')
     end
-    expect(page).to have_no_content('567')
-    expect(page).to have_no_content('Part')
-    expect(page).to have_no_content('twenty')
-    expect(page).to have_no_content('9')
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('twenty')
+    expect(page).not_to have_content('9')
   end
 
   it 'blocks an invalid quantity' do
@@ -88,9 +88,9 @@ describe 'items details', type: :feature do
       fill_in('price', with: '7.20')
       fill_in('quantity', with: 'nine')
     end
-    expect(page).to have_no_content('567')
-    expect(page).to have_no_content('Part')
-    expect(page).to have_no_content('7.20')
-    expect(page).to have_no_content('nine')
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('7.20')
+    expect(page).not_to have_content('nine')
   end
 end
