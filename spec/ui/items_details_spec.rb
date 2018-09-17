@@ -81,6 +81,19 @@ describe 'items details', type: :feature do
     expect(page).not_to have_content('9')
   end
 
+  it 'blocks an invalid price' do
+    visit_items_details_page_in_form do
+      fill_in('id', with: '567')
+      fill_in('name', with: 'Part')
+      fill_in('price', with: '12.50l')
+      fill_in('quantity', with: '9')
+    end
+    expect(page).not_to have_content('567')
+    expect(page).not_to have_content('Part')
+    expect(page).not_to have_content('12.50l')
+    expect(page).not_to have_content('9')
+  end
+
   it 'blocks an invalid quantity' do
     visit_items_details_page_in_form do
       fill_in('id', with: '567')

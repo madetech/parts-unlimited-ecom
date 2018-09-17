@@ -52,6 +52,9 @@ class SaveItemsDetails
     @item_details[:quantity].match(QUANTITY_REGEX)
   end
 
-  PRICE_REGEX = /[0-9]+(\.[0-9]{2})?/
+  PRICE_REGEX = /(^\d+\.\d+$|^\d+$)/
+  # Any nubmer of digits, followed by a '.', followed by any number of digits
+  # OR
+  # Any number of digits
   QUANTITY_REGEX = /[0-9]+(\.[0-9]+)?/
 end
