@@ -26,13 +26,14 @@ describe ViewSummary do
 
   class CustomerStub
     def initialize(
-      customer_name,
+      shipping_customer_name,
       shipping_address_line1,
       shipping_city,
       shipping_county,
       shipping_postcode,
       shipping_phone_number,
       shipping_email_address,
+      billing_customer_name,
       billing_address_line1,
       billing_city,
       billing_county,
@@ -40,13 +41,14 @@ describe ViewSummary do
       billing_phone_number,
       billing_email_address
     )
-      @customer_name = customer_name
+      @shipping_customer_name = shipping_customer_name
       @shipping_address_line1 = shipping_address_line1
       @shipping_city = shipping_city
       @shipping_county = shipping_county
       @shipping_postcode = shipping_postcode
       @shipping_phone_number = shipping_phone_number
       @shipping_email_address = shipping_email_address
+      @billing_customer_name = billing_customer_name
       @billing_address_line1 = billing_address_line1
       @billing_city = billing_city
       @billing_county = billing_county
@@ -55,7 +57,7 @@ describe ViewSummary do
       @billing_email_address = billing_email_address
     end
 
-    attr_reader :customer_name,
+    attr_reader :shipping_customer_name,
                 :shipping_address_line1,
                 :shipping_address_line2,
                 :shipping_city,
@@ -63,6 +65,7 @@ describe ViewSummary do
                 :shipping_postcode,
                 :shipping_phone_number,
                 :shipping_email_address,
+                :billing_customer_name,
                 :billing_address_line1,
                 :billing_address_line2,
                 :billing_city,
@@ -81,6 +84,7 @@ describe ViewSummary do
       'LN1 2DZ',
       '01234567890',
       'harry@southwark.com',
+      'Harry',
       'Southwark',
       'London',
       'Greater London',
@@ -104,7 +108,8 @@ describe ViewSummary do
       shipping_postcode: 'LN1 2DZ',
       billing_phone_number: '01234567890',
       billing_postcode: 'LN1 2DZ',
-      customer_name: 'Harry',
+      shipping_customer_name: 'Harry',
+      billing_customer_name: 'Harry',
       shipping_address_line1: 'Southwark',
       shipping_address_line2: nil,
       shipping_city: 'London',

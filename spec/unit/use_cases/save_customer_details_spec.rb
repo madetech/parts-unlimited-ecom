@@ -8,7 +8,7 @@ describe SaveCustomerDetails do
 
   it 'uses the customer gateway to save customer details' do
     use_case.execute(customer_details: {
-                       customer_name: 'Paul',
+                       shipping_customer_name: 'Paul',
                        shipping_address_line1: '137 Southwark Street',
                        shipping_address_line2: 'Northwark',
                        shipping_city: 'Kent',
@@ -16,6 +16,7 @@ describe SaveCustomerDetails do
                        shipping_postcode: 'S21 0SW',
                        shipping_phone_number: '07912345672',
                        shipping_email_address: 'paul@gmail.com',
+                       billing_customer_name: 'Paul',
                        billing_address_line1: '137 Southwark Street',
                        billing_address_line2: 'Northwark',
                        billing_city: 'Kent',
@@ -26,7 +27,7 @@ describe SaveCustomerDetails do
                      })
 
     expect(customer_gateway).to have_received(:save) do |customer|
-      expect(customer.customer_name).to eq('Paul')
+      expect(customer.shipping_customer_name).to eq('Paul')
       expect(customer.shipping_address_line1).to eq('137 Southwark Street')
       expect(customer.shipping_address_line2).to eq('Northwark')
       expect(customer.shipping_city).to eq('Kent')
@@ -34,6 +35,7 @@ describe SaveCustomerDetails do
       expect(customer.shipping_postcode).to eq('S21 0SW')
       expect(customer.shipping_phone_number).to eq('07912345672')
       expect(customer.shipping_email_address).to eq('paul@gmail.com')
+      expect(customer.billing_customer_name).to eq('Paul')
       expect(customer.billing_address_line1).to eq('137 Southwark Street')
       expect(customer.billing_address_line2).to eq('Northwark')
       expect(customer.billing_city).to eq('Kent')
@@ -47,7 +49,7 @@ describe SaveCustomerDetails do
   context 'validate customer details' do
     it 'can return success for valid details' do
       response = use_case.execute(customer_details: {
-                                    customer_name: 'Harry',
+                                    shipping_customer_name: 'Harry',
                                     shipping_address_line1: '13 South Street',
                                     shipping_address_line2: 'Borough',
                                     shipping_city: 'Fake',
@@ -55,6 +57,7 @@ describe SaveCustomerDetails do
                                     shipping_postcode: 'N21 0SW',
                                     shipping_phone_number: '07912456672',
                                     shipping_email_address: 'harry@gmail.com',
+                                    billing_customer_name: 'Harry',
                                     billing_address_line1: '13 South Street',
                                     billing_address_line2: 'Borough',
                                     billing_city: 'Fake',

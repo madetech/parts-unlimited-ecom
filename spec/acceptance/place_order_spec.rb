@@ -16,7 +16,7 @@ describe 'place order' do
     context 'given valid customer details' do
       it 'stores the customer details' do
         customer_details = {
-          customer_name: 'Barry',
+          shipping_customer_name: 'Barry',
           shipping_address_line1: '136 Southwark Street',
           shipping_address_line2: 'Southwark',
           shipping_city: 'London',
@@ -24,6 +24,7 @@ describe 'place order' do
           shipping_postcode: 'SE1 0SW',
           shipping_phone_number: '07912345671',
           shipping_email_address: 'barry@gmail.com',
+          billing_customer_name: 'Barry',
           billing_address_line1: '136 Southwark Street',
           billing_address_line2: 'Southwark',
           billing_city: 'London',
@@ -36,7 +37,7 @@ describe 'place order' do
         save_customer_details.execute(customer_details: customer_details)
 
         customer = customer_gateway.all.first
-        expect(customer.customer_name).to eq('Barry')
+        expect(customer.shipping_customer_name).to eq('Barry')
         expect(customer.shipping_address_line1).to eq('136 Southwark Street')
         expect(customer.shipping_address_line2).to eq('Southwark')
         expect(customer.shipping_city).to eq('London')
@@ -44,6 +45,7 @@ describe 'place order' do
         expect(customer.shipping_postcode).to eq('SE1 0SW')
         expect(customer.shipping_phone_number).to eq('07912345671')
         expect(customer.shipping_email_address).to eq('barry@gmail.com')
+        expect(customer.billing_customer_name).to eq('Barry')
         expect(customer.billing_address_line1).to eq('136 Southwark Street')
         expect(customer.billing_address_line2).to eq('Southwark')
         expect(customer.billing_city).to eq('London')
@@ -57,7 +59,7 @@ describe 'place order' do
     context 'given invalid customer details' do
       it 'responds with a validation error' do
         customer_details = {
-          customer_name: '',
+          shipping_customer_name: '',
           shipping_address_line1: '',
           shipping_address_line2: 'Hey',
           shipping_city: '',
@@ -65,6 +67,7 @@ describe 'place order' do
           shipping_postcode: 'S2E1 0SW',
           shipping_phone_number: '07912345671765',
           shipping_email_address: 'barrygmail.com',
+          billing_customer_name: '',
           billing_address_line1: '',
           billing_address_line2: 'Southwark',
           billing_city: '',
@@ -78,10 +81,11 @@ describe 'place order' do
           eq(
             successful: false,
             errors: %i[
-              missing_customer_name
+              missing_shipping_customer_name
               missing_shipping_address_line1
               missing_shipping_city
               missing_shipping_county
+              missing_billing_customer_name
               missing_billing_address_line1
               missing_billing_city
               missing_billing_county
@@ -101,7 +105,7 @@ describe 'place order' do
   context 'viewing order summary'  do
     it 'displays customer details' do
       customer_details = {
-        customer_name: 'Barry',
+        shipping_customer_name: 'Barry',
         shipping_address_line1: '136 Southwark Street',
         shipping_address_line2: 'Southwark',
         shipping_city: 'London',
@@ -109,6 +113,7 @@ describe 'place order' do
         shipping_postcode: 'SE1 0SW',
         shipping_phone_number: '07912345671',
         shipping_email_address: 'barry@gmail.com',
+        billing_customer_name: 'Barry',
         billing_address_line1: '136 Southwark Street',
         billing_address_line2: 'Southwark',
         billing_city: 'London',

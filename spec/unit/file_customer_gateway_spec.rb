@@ -14,7 +14,7 @@ describe FileCustomerGateway do
   it 'can get a customer' do
     customer_builder = Builder::Customer.new
 
-    customer_builder.customer_name = 'Bob'
+    customer_builder.shipping_customer_name = 'Bob'
     customer_builder.shipping_address_line1 = '1 Fake Street'
     customer_builder.shipping_address_line2 = 'Fake Flat'
     customer_builder.shipping_city = 'Faketon'
@@ -22,6 +22,7 @@ describe FileCustomerGateway do
     customer_builder.shipping_postcode = 'FK1 1SW'
     customer_builder.shipping_phone_number = '018283818283'
     customer_builder.shipping_email_address = 'fake@gmail.com'
+    customer_builder.billing_customer_name = 'Bob'
     customer_builder.billing_address_line1 = '12 Fakeish'
     customer_builder.billing_address_line2 = 'Fake block'
     customer_builder.billing_city = 'Fakeville'
@@ -33,7 +34,7 @@ describe FileCustomerGateway do
     file_customer_gateway.save(customer)
 
     file_customer_gateway.all.first.tap do |customer|
-      expect(customer.customer_name).to eq('Bob')
+      expect(customer.shipping_customer_name).to eq('Bob')
       expect(customer.shipping_address_line1).to eq('1 Fake Street')
       expect(customer.shipping_address_line2).to eq('Fake Flat')
       expect(customer.shipping_city).to eq('Faketon')
@@ -41,6 +42,7 @@ describe FileCustomerGateway do
       expect(customer.shipping_postcode).to eq('FK1 1SW')
       expect(customer.shipping_phone_number).to eq('018283818283')
       expect(customer.shipping_email_address).to eq('fake@gmail.com')
+      expect(customer.billing_customer_name).to eq('Bob')
       expect(customer.billing_address_line1).to eq('12 Fakeish')
       expect(customer.billing_address_line2).to eq('Fake block')
       expect(customer.billing_city).to eq('Fakeville')
