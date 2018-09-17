@@ -16,7 +16,7 @@ class FileCustomerGateway
 
   def save(customer)
     serialised_customer = {
-      customer_name: customer.customer_name,
+      shipping_customer_name: customer.shipping_customer_name,
       shipping_address_line1: customer.shipping_address_line1,
       shipping_address_line2: customer.shipping_address_line2,
       shipping_city: customer.shipping_city,
@@ -24,6 +24,7 @@ class FileCustomerGateway
       shipping_postcode: customer.shipping_postcode,
       shipping_phone_number: customer.shipping_phone_number,
       shipping_email_address: customer.shipping_email_address,
+      billing_customer_name: customer.billing_customer_name,
       billing_address_line1: customer.billing_address_line1,
       billing_address_line2: customer.billing_address_line2,
       billing_city: customer.billing_city,

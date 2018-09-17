@@ -37,7 +37,7 @@ get '/customer-details' do
 end
 
 post '/customer-details' do
-  customer_name = params.fetch(:customer_name)
+  shipping_customer_name = params.fetch(:shipping_customer_name)
   shipping_address_line1 = params.fetch(:shipping_address_line1)
   shipping_address_line2 = params.fetch(:shipping_address_line2)
   shipping_city = params.fetch(:shipping_city)
@@ -45,6 +45,7 @@ post '/customer-details' do
   shipping_postcode = params.fetch(:shipping_postcode)
   shipping_phone_number = params.fetch(:shipping_phone_number)
   shipping_email_address = params.fetch(:shipping_email_address)
+  billing_customer_name = params.fetch(:billing_customer_name)
   billing_address_line1 = params.fetch(:billing_address_line1)
   billing_address_line2 = params.fetch(:billing_address_line2)
   billing_city = params.fetch(:billing_city)
@@ -53,7 +54,7 @@ post '/customer-details' do
   billing_phone_number = params.fetch(:billing_phone_number)
   billing_email_address = params.fetch(:billing_email_address)
   @customer_details = {
-    customer_name: customer_name,
+    shipping_customer_name: shipping_customer_name,
     shipping_address_line1: shipping_address_line1,
     shipping_address_line2: shipping_address_line2,
     shipping_city: shipping_city,
@@ -61,6 +62,7 @@ post '/customer-details' do
     shipping_postcode: shipping_postcode,
     shipping_phone_number: shipping_phone_number,
     shipping_email_address: shipping_email_address,
+    billing_customer_name: billing_customer_name,
     billing_address_line1: billing_address_line1,
     billing_address_line2: billing_address_line2,
     billing_city: billing_city,

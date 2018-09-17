@@ -3,7 +3,7 @@
 module Builder
   class Customer
     attr_accessor :customer_details,
-                  :customer_name,
+                  :shipping_customer_name,
                   :shipping_address_line1,
                   :shipping_address_line2,
                   :shipping_city,
@@ -11,6 +11,7 @@ module Builder
                   :shipping_postcode,
                   :shipping_phone_number,
                   :shipping_email_address,
+                  :billing_customer_name,
                   :billing_address_line1,
                   :billing_address_line2,
                   :billing_city,
@@ -22,7 +23,6 @@ module Builder
     def build
       copy_from_individual_fields unless customer_details_is_used?
       customer = ::Customer.new
-      customer.customer_name = customer_details[:customer_name]
       customer.shipping_address = build_shipping_address
       customer.billing_address = build_billing_address
       customer
@@ -32,6 +32,7 @@ module Builder
 
     def build_shipping_address
       shipping_address = ::Address.new
+      shipping_address.customer_name = customer_details[:shipping_customer_name]
       shipping_address.address_line1 = customer_details[:shipping_address_line1]
       shipping_address.address_line2 = customer_details[:shipping_address_line2]
       shipping_address.city = customer_details[:shipping_city]
@@ -44,6 +45,7 @@ module Builder
 
     def build_billing_address
       billing_address = ::Address.new
+      billing_address.customer_name = customer_details[:billing_customer_name]
       billing_address.address_line1 = customer_details[:billing_address_line1]
       billing_address.address_line2 = customer_details[:billing_address_line2]
       billing_address.city = customer_details[:billing_city]
@@ -60,7 +62,7 @@ module Builder
 
     def copy_from_individual_fields
       @customer_details = {
-        customer_name: customer_name,
+        shipping_customer_name: shipping_customer_name,
         shipping_address_line1: shipping_address_line1,
         shipping_address_line2: shipping_address_line2,
         shipping_city: shipping_city,
@@ -68,6 +70,7 @@ module Builder
         shipping_postcode: shipping_postcode,
         shipping_phone_number: shipping_phone_number,
         shipping_email_address: shipping_email_address,
+        billing_customer_name: billing_customer_name,
         billing_address_line1: billing_address_line1,
         billing_address_line2: billing_address_line2,
         billing_city: billing_city,
