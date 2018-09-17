@@ -31,7 +31,7 @@ end
 
 get '/customer-details' do
   summary = @view_summary.execute
-  @customer_details = summary[:customer]
+  @customer_details = summary[:customer] || {}
   @errors = []
   erb :customer_details
 end
