@@ -53,5 +53,5 @@ class SaveItemsDetails
   end
 
   PRICE_REGEX = /^[0-9]+(\.[0-9]+)?$/
-  QUANTITY_REGEX = /[0-9]+(\.[0-9]+)?/
+  QUANTITY_REGEX = /^[0-9]+(\.[0-9]+)?$/
 end

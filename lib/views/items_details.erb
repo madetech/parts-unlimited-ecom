@@ -82,18 +82,18 @@
                 <% if @errors.include?(:missing_price) || @errors.include?(:invalid_price)%>
                 <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="price" name="price" class="form-control is-invalid" placeholder="Price"/>
                 <% elsif @item_row.nil? %>
-                <input type="text" id="price" name="price" class="form-control" placeholder="Price"/>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="price" name="price" class="form-control" placeholder="Price"/>
                 <% else %>
-                <input type="text" id="price" name="price" class="form-control" value="<%= @item_row[:price]%>"/>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="price" name="price" class="form-control" value="<%= @item_row[:price]%>"/>
                 <% end %>
               </div>
               <div class="p-1 width-11">
                 <%if @errors.include?(:missing_quantity) || @errors.include?(:invalid_quantity)%>
-                <input type="text" id="quantity" name="quantity" class="form-control is-invalid" placeholder="Quantity"/>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="quantity" name="quantity" class="form-control is-invalid" placeholder="Quantity"/>
                 <% elsif @item_row.nil? %>
-                <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Quantity"/>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="quantity" name="quantity" class="form-control" placeholder="Quantity"/>
                 <% else %>
-                <input type="text" id="quantity" name="quantity" class="form-control" value="<%= @item_row[:quantity]%>"/>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="quantity" name="quantity" class="form-control" value="<%= @item_row[:quantity]%>"/>
                 <% end %>
               </div>
               <div class="pl-5 pt-1 width-20">
