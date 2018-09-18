@@ -11,9 +11,31 @@ describe 'customer details', type: :feature do
     click_button('Next')
   end
 
+  it 'autofocuses on an incorrect field' do
+    FileCustomerGateway.new.delete_all
+    visit_customer_details_page_in_form do
+      fill_in('shipping_address_line1', with: '1 Fake Street')
+      fill_in('shipping_address_line2', with: 'Fake Flat')
+      fill_in('shipping_city', with: 'Faketon')
+      fill_in('shipping_county', with: 'Fakeshire')
+      fill_in('shipping_postcode', with: 'FK1 1SW')
+      fill_in('shipping_phone_number', with: '01828381828')
+      fill_in('shipping_email_address', with: 'fake@gmail.com')
+      fill_in('billing_customer_name', with: 'Bob')
+      fill_in('billing_address_line1', with: '12 Fakeish')
+      fill_in('billing_address_line2', with: 'Fake block')
+      fill_in('billing_city', with: 'Fakeville')
+      fill_in('billing_county', with: 'Fakeishshire')
+      fill_in('billing_postcode', with: 'FK2 1EE')
+      fill_in('billing_phone_number', with: '01982371234')
+      fill_in('billing_email_address', with: 'fake2@gmail.com')
+    end
+    expect(page).to have_css("input[autofocus]")
+  end
+
   it 'accepts a customer name' do
     visit_customer_details_page_in_form { fill_in('shipping_customer_name', with: 'Larry') }
-    expect(page).to have_no_content('Please enter a customer name')
+    expect(page).to have_no_content('Please enter a shipping name')
   end
 
   it 'does not accept an invalid phone number' do
