@@ -4,6 +4,7 @@
 require 'sinatra'
 require 'file_customer_gateway'
 require 'file_items_gateway'
+require 'file_order_gateway'
 require 'use_cases/delete_item'
 require 'use_cases/calculate_total_cost'
 require 'use_cases/calculate_vat'
@@ -13,11 +14,13 @@ require 'use_cases/view_summary'
 require 'use_cases/duplicate_address'
 require 'builder/customer'
 require 'builder/items'
+require 'builder/order'
 require 'domain/address'
 require 'domain/customer'
 require 'domain/items'
 require 'database_admin/postgres'
 require_relative '../db/migrator'
+require 'domain/order'
 
 helpers do
   def first_error?(error)
@@ -29,10 +32,11 @@ before do
   database = DatabaseAdministrator::Postgres.new.existing_database
   @customer_gateway = FileCustomerGateway.new(database: database)
   @items_gateway = FileItemsGateway.new(database: database)
+  @order_gateway = FileOrderGateway.new
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
   @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
   @calculate_vat = CalculateVAT.new(items_gateway: @items_gateway)
-  @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost, calculate_vat: @calculate_vat)
+  @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost, calculate_vat: @calculate_vat, order_gateway: @order_gateway)
   @delete_item = DeleteItem.new(items_gateway: @items_gateway)
   @duplicate_address = DuplicateAddress.new(save_customer_details: @save_customer_details)
 end
@@ -127,11 +131,19 @@ post '/item-delete/:id' do
   redirect '/items-details'
 end
 
+post '/shipping-total' do
+  shipping_total = params.fetch(:shipping_total)
+  @order_details = { shipping_total: shipping_total }
+  save_order_details.execute(order_details: @order_details)
+  redirect 'items-details'
+end
+
 get '/order-summary' do
   summary = @view_summary.execute
   @customer = summary[:customer]
   @items = summary[:items]
   @net_total = summary[:net_total]
   @vat = summary[:vat_total]
+  @order = summary[:order]
   erb :summary
 end
