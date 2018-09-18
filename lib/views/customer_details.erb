@@ -29,6 +29,9 @@
             <div class="form-group">
               <label for="shipping-customer-name">Shipping Name<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_customer_name%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-customer-name"
@@ -42,6 +45,9 @@
             <div class="form-group">
               <label for="shipping-address-line1">Address Line 1<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_address_line1%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-address-line1"
@@ -65,6 +71,9 @@
             <div class="form-group">
               <label for="shipping-city">City<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_city%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-city"
@@ -78,6 +87,9 @@
             <div class="form-group">
               <label for="shipping-county">County<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_county%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-county"
@@ -91,6 +103,9 @@
             <div class="form-group">
               <label for="shipping-postcode">Postcode<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_postcode || @errors[0]==:invalid_shipping_postcode%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-postcode"
@@ -106,6 +121,9 @@
             <div class="form-group">
               <label for="shipping-phone-number">Phone Number<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_phone_number || @errors[0]==:invalid_shipping_phone_number%>
+                  autofocus
+                <%end%>
                 type="tel"
                 class="form-control"
                 id="shipping-phone-number"
@@ -121,6 +139,9 @@
             <div class="form-group">
               <label for="shipping-email">Email<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_shipping_email_address || @errors[0]==:missing_shipping_email_address%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-email"
@@ -137,6 +158,9 @@
             <div class="form-group">
               <label for="billing-customer-name">Billing Name<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_customer_name%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-customer-name"
@@ -150,6 +174,9 @@
             <div class="form-group">
               <label for="billing-address-line1">Address Line 1<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_customer_address_line1%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-address-line1"
@@ -173,6 +200,9 @@
             <div class="form-group">
               <label for="billing-city">City<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_city%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-city"
@@ -186,6 +216,9 @@
             <div class="form-group">
               <label for="billing-county">County<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_county%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-county"
@@ -199,6 +232,9 @@
             <div class="form-group">
               <label for="billing-postcode">Postcode<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_postcode || @errors[0]==:invalid_billing_postcode%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-postcode"
@@ -214,6 +250,9 @@
             <div class="form-group">
               <label for="billing-phone-number">Phone Number<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_phone_number || @errors[0]==:invalid_billing_phone_number%>
+                  autofocus
+                <%end%>
                 type="tel"
                 class="form-control"
                 id="billing-phone-number"
@@ -229,6 +268,9 @@
             <div class="form-group">
               <label for="billing-email">Email<span class="text-danger">*</span></label>
               <input
+                <%if @errors[0]==:missing_billing_email_address || @errors[0]==:invalid_billing_email_address%>
+                  autofocus
+                <%end%>
                 type="text"
                 class="form-control"
                 id="billing-email"

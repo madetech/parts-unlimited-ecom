@@ -76,6 +76,7 @@ post '/customer-details' do
   @errors = response[:errors]
 
   return redirect '/items-details' if response[:successful]
+
   erb :customer_details
 end
 
