@@ -15,6 +15,12 @@ require 'domain/address'
 require 'domain/customer'
 require 'domain/items'
 
+helpers do
+  def first_error?(error)
+    @errors[0]==error
+  end
+end
+
 before do
   @customer_gateway = FileCustomerGateway.new
   @items_gateway = FileItemsGateway.new
