@@ -6,8 +6,10 @@ describe 'place order' do
   database = DatabaseAdministrator::Postgres.new.existing_database
   let(:customer_gateway) { FileCustomerGateway.new(database: database) }
   let(:items_gateway) { FileItemsGateway.new(database: database) }
+  let(:order_gateway) { FileOrderGateway.new }
   let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: customer_gateway) }
   let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }
+  let(:save_order_details) { SaveOrderDetails.new(order_gateway: order_gateway) }
   let(:calculate_total_cost) { CalculateTotalCost.new(items_gateway: items_gateway) }
   let(:duplicate_address) { DuplicateAddress.new(save_customer_details: save_customer_details) }
   let(:delete_item) { DeleteItem.new(items_gateway: items_gateway) }
@@ -307,6 +309,19 @@ describe 'place order' do
       delete_item = DeleteItem.new(items_gateway: items_gateway)
       delete_item.execute(id: view_summary.execute[:items].first[:id])
       expect(view_summary.execute[:items]).to eq([])
+    end
+  end
+
+  context 'saving order details' do
+    context 'given valid order details' do
+      it 'stores the order details' do
+        order_details = {
+          shipping_total: '17.00'
+        }
+        save_order_details.execute(order_details: order_details)
+        order = order_gateway.all.first
+        expect(order.shipping_total).to eq('17.00')
+      end
     end
   end
 end
