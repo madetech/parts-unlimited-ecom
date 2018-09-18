@@ -9,9 +9,10 @@ describe 'place order' do
   let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: customer_gateway) }
   let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }
   let(:calculate_total_cost) { CalculateTotalCost.new(items_gateway: items_gateway) }
-  let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost) }
   let(:duplicate_address) { DuplicateAddress.new(save_customer_details: save_customer_details) }
   let(:delete_item) { DeleteItem.new(items_gateway: items_gateway) }
+  let(:calculate_vat) { CalculateVAT.new(items_gateway: items_gateway) }
+  let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost, calculate_vat: calculate_vat) }
 
   before(:each) do
     items_gateway.delete_all
@@ -185,6 +186,7 @@ describe 'place order' do
       expect(items[1][:quantity]).to eq('10')
 
       expect(response).to include(net_total: '218.00')
+      expect(response).to include(vat_total: '403939.20')
     end
   end
 
@@ -276,6 +278,26 @@ describe 'place order' do
       end
     end
   end
+
+    context 'calculating the vat total of total items' do
+      it 'returns the vat total of items' do
+        ordered_item1 = { id: '23', name: 'Bats', price: '10.00', quantity: '10' }
+        ordered_item2 = { id: '24', name: 'Bets', price: '12.20', quantity: '1' }
+        ordered_item3 = { id: '33', name: 'Bits', price: '15.00', quantity: '5' }
+        ordered_item4 = { id: '34', name: 'Bots', price: '4.00', quantity: '1' }
+        ordered_item5 = { id: '43', name: 'Buts', price: '10.00', quantity: '4' }
+
+        save_items_details.execute(item_details: ordered_item1)
+        save_items_details.execute(item_details: ordered_item2)
+        save_items_details.execute(item_details: ordered_item3)
+        save_items_details.execute(item_details: ordered_item4)
+        save_items_details.execute(item_details: ordered_item5)
+
+        response = calculate_vat.execute
+
+        expect(response).to eq('46.24')
+      end 
+    end 
 
   context 'delete item' do
 
