@@ -97,7 +97,7 @@ class SaveCustomerDetails
     email.match(EMAIL_REGEX)
   end
 
-  PHONE_NUMBER_REGEX = /\A[+]?\d{11,12}\z/
+  PHONE_NUMBER_REGEX = /^\A[+]?\d{11,12}\z$/
   POSTCODE_REGEX = /^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$/
   EMAIL_REGEX = /^[^@\W]+?@\w+?\..+?$/
 end
