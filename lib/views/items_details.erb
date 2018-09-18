@@ -115,7 +115,16 @@
       <div class="row">
         <div class="col p-4 pb-5">
           <a role="button" href="/customer-details" class="btn btn-secondary ml-3">Back</a>
+          <form method="POST" action="/shipping-total" id="shipping-total">
+          <label for="shipping-total">Shipping Total<span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="shipping-total"
+                name="shipping_total"
+                />
           <a role="button" href="/order-summary" class="btn btn-primary float-right mr-3">Next</a>
+          </form>
         </div>
       </div>
     </div>

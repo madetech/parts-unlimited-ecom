@@ -14,7 +14,7 @@ describe 'place order' do
   let(:duplicate_address) { DuplicateAddress.new(save_customer_details: save_customer_details) }
   let(:delete_item) { DeleteItem.new(items_gateway: items_gateway) }
   let(:calculate_vat) { CalculateVAT.new(items_gateway: items_gateway) }
-  let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost, calculate_vat: calculate_vat) }
+  let(:view_summary) { ViewSummary.new(customer_gateway: customer_gateway, items_gateway: items_gateway, calculate_total_cost: calculate_total_cost, calculate_vat: calculate_vat, order_gateway: order_gateway) }
 
   before(:each) do
     items_gateway.delete_all

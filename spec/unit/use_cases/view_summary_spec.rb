@@ -5,13 +5,23 @@ describe ViewSummary do
   let(:file_items_gateway) { spy }
   let(:calculate_total_cost) { spy }
   let(:calculate_vat) { spy }
+  let(:file_order_gateway) { spy }
   let(:view_summary) do
     described_class.new(
       customer_gateway: file_customer_gateway,
       items_gateway: file_items_gateway,
       calculate_total_cost: calculate_total_cost,
-      calculate_vat: calculate_vat
+      calculate_vat: calculate_vat,
+      order_gateway: file_order_gateway
     )
+  end
+
+  class OrderStub
+    def initialize(shipping_total)
+      @shipping_total = shipping_total
+    end
+
+    attr_reader :shipping_total
   end
 
   class Stub
@@ -99,7 +109,8 @@ describe ViewSummary do
       customer_gateway: customer_double,
       items_gateway: spy,
       calculate_total_cost: spy,
-      calculate_vat: spy
+      calculate_vat: spy,
+      order_gateway: spy
     )
     response = view_summary.execute
     expect(response[:customer]).to eq(
@@ -127,7 +138,8 @@ describe ViewSummary do
       customer_gateway: spy,
       items_gateway: double(all: [Stub.new(1, '113', 'Billy Bob', '12', '2', '24')]),
       calculate_total_cost: spy,
-      calculate_vat: spy
+      calculate_vat: spy,
+      order_gateway: spy
     )
     response = view_summary.execute
     expected_items = [{
@@ -146,7 +158,8 @@ describe ViewSummary do
       customer_gateway: spy,
       items_gateway: spy,
       calculate_total_cost: double(execute: '50.00'),
-      calculate_vat: spy
+      calculate_vat: spy,
+      order_gateway: spy
     )
     response = view_summary.execute
     expect(response[:net_total]).to eq('50.00')
@@ -157,9 +170,22 @@ describe ViewSummary do
       customer_gateway: spy,
       items_gateway: spy,
       calculate_total_cost: spy,
-      calculate_vat: double(execute: '25.00')
+      calculate_vat: double(execute: '25.00'),
+      order_gateway: spy
     )
     response = view_summary.execute
     expect(response[:vat_total]).to eq('25.00')
+  end
+
+  it 'returns order' do
+    view_summary = described_class.new(
+      customer_gateway: spy,
+      items_gateway: spy,
+      calculate_total_cost: spy,
+      calculate_vat: spy,
+      order_gateway: double(all: [OrderStub.new('14.00')])
+    )
+    response = view_summary.execute
+    expect(response[:order]).to eq(shipping_total: '14.00')
   end
 end

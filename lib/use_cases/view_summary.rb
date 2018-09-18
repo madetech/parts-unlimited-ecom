@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 class ViewSummary
-  def initialize(customer_gateway:, items_gateway:, calculate_total_cost:, calculate_vat:)
+  def initialize(customer_gateway:, items_gateway:, calculate_total_cost:, calculate_vat:, order_gateway:)
     @customer_gateway = customer_gateway
     @items_gateway = items_gateway
     @calculate_total_cost = calculate_total_cost
     @calculate_vat = calculate_vat
+    @order_gateway = order_gateway
   end
 
   def execute
-    { customer: customer, items: items, net_total: @calculate_total_cost.execute, vat_total: @calculate_vat.execute }
+    { customer: customer, items: items, net_total: @calculate_total_cost.execute, vat_total: @calculate_vat.execute , order: order}
   end
 
   private
@@ -48,5 +49,12 @@ class ViewSummary
       }
     end
     items
+  end
+
+  def order
+    order = @order_gateway.all.first
+    {
+      shipping_total: order.shipping_total
+    }
   end
 end
