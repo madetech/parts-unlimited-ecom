@@ -6,6 +6,7 @@ require 'file_customer_gateway'
 require 'file_items_gateway'
 require 'use_cases/delete_item'
 require 'use_cases/calculate_total_cost'
+require 'use_cases/calculate_vat'
 require 'use_cases/save_customer_details'
 require 'use_cases/save_items_details'
 require 'use_cases/view_summary'
@@ -29,8 +30,9 @@ before do
   @customer_gateway = FileCustomerGateway.new(database: database)
   @items_gateway = FileItemsGateway.new(database: database)
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
-  @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost)
   @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
+  @calculate_vat = CalculateVAT.new(items_gateway: @items_gateway)
+  @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost, calculate_vat: @calculate_vat)
   @delete_item = DeleteItem.new(items_gateway: @items_gateway)
   @duplicate_address = DuplicateAddress.new(save_customer_details: @save_customer_details)
 end
@@ -94,6 +96,7 @@ end
 get '/items-details' do
   summary = @view_summary.execute
   @net_total = summary[:net_total]
+  @vat = summary[:vat_total]
   @items = summary[:items]
   @errors = []
   erb :items_details
@@ -129,5 +132,6 @@ get '/order-summary' do
   @customer = summary[:customer]
   @items = summary[:items]
   @net_total = summary[:net_total]
+  @vat = summary[:vat_total]
   erb :summary
 end

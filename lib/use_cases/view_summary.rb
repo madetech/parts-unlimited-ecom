@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class ViewSummary
-  def initialize(customer_gateway:, items_gateway:, calculate_total_cost:)
+  def initialize(customer_gateway:, items_gateway:, calculate_total_cost:, calculate_vat:)
     @customer_gateway = customer_gateway
     @items_gateway = items_gateway
     @calculate_total_cost = calculate_total_cost
+    @calculate_vat = calculate_vat
   end
 
   def execute
-    { customer: customer, items: items, net_total: @calculate_total_cost.execute }
+    { customer: customer, items: items, net_total: @calculate_total_cost.execute, vat_total: @calculate_vat.execute }
   end
 
   private

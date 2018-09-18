@@ -4,11 +4,13 @@ describe ViewSummary do
   let(:file_customer_gateway) { spy }
   let(:file_items_gateway) { spy }
   let(:calculate_total_cost) { spy }
+  let(:calculate_vat) { spy }
   let(:view_summary) do
     described_class.new(
       customer_gateway: file_customer_gateway,
       items_gateway: file_items_gateway,
-      calculate_total_cost: calculate_total_cost
+      calculate_total_cost: calculate_total_cost,
+      calculate_vat: calculate_vat
     )
   end
 
@@ -96,7 +98,8 @@ describe ViewSummary do
     view_summary = described_class.new(
       customer_gateway: customer_double,
       items_gateway: spy,
-      calculate_total_cost: spy
+      calculate_total_cost: spy,
+      calculate_vat: spy
     )
     response = view_summary.execute
     expect(response[:customer]).to eq(
@@ -123,7 +126,8 @@ describe ViewSummary do
     view_summary = described_class.new(
       customer_gateway: spy,
       items_gateway: double(all: [Stub.new(1, '113', 'Billy Bob', '12', '2', '24')]),
-      calculate_total_cost: spy
+      calculate_total_cost: spy,
+      calculate_vat: spy
     )
     response = view_summary.execute
     expected_items = [{
@@ -141,9 +145,21 @@ describe ViewSummary do
     view_summary = described_class.new(
       customer_gateway: spy,
       items_gateway: spy,
-      calculate_total_cost: double(execute: '50.00')
+      calculate_total_cost: double(execute: '50.00'),
+      calculate_vat: spy
     )
     response = view_summary.execute
     expect(response[:net_total]).to eq('50.00')
+  end
+
+  it 'returns vat' do
+    view_summary = described_class.new(
+      customer_gateway: spy,
+      items_gateway: spy,
+      calculate_total_cost: spy,
+      calculate_vat: double(execute: '25.00')
+    )
+    response = view_summary.execute
+    expect(response[:vat_total]).to eq('25.00')
   end
 end
