@@ -54,6 +54,6 @@
 .progressbar li.active:before {
   border-color: var(--highlight-clr);
 }
-.progressbar li.active + li:after {
+.progressbar li.active:after {
   background-color: var(--highlight-clr);
 }
