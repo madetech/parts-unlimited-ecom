@@ -52,6 +52,7 @@ class ViewSummary
   end
 
   def order
+    return nil if @order_gateway.all.empty?
     order = @order_gateway.all.first
     {
       shipping_total: order.shipping_total
