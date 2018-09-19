@@ -25,25 +25,6 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10 pt-5">
-                    <% pretty_error_message_conversion = { 
-                missing_id: 'Please enter a product ID', 
-                missing_name: 'Please enter a product name',
-                missing_price: 'Please enter a price',
-                missing_quantity: 'Please enter a quantity',
-                invalid_price: 'Please enter a valid price',
-                invalid_quantity: 'Please enter a quantity'
-                }
-            %>
-            <% if @errors.empty? %>
-            <% else %>
-            <div class="alert alert-danger" role="alert">
-          <% @errors.each do |error|%>
-            <% next if error == :invalid_quantity && @errors.include?(:missing_quantity) %>
-            <% next if error == :invalid_price && @errors.include?(:missing_price) %>
-              *<%= pretty_error_message_conversion[error] %><br/>
-          <% end %>
-            </div>
-            <% end %>
           <table class="table table-striped border rounded bg-white">
             <thead>
               <tr>
@@ -77,6 +58,11 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
+            <% unless @errors.empty?%>
+            <div class="alert alert-danger" role="alert">
+              *All fields are required.
+            </div>
+            <% end %>
           <form method="POST" action="/items-details" id="new-row">
             <div class="form-row">
               <div class="p-1 pl-3 width-14">
