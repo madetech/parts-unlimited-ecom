@@ -56,13 +56,16 @@
             <h6> VAT: £<%= @vat %> </h6>
             <h6>
               <form method="POST" action="/shipping-total" id="shipping-total">
+              <div>
               <label for="shipping-total">Shipping Total<span class="text-danger">*</span></label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="shipping-total"
-                    name="shipping_total"
-                />
+                <% if @errors.include?(:missing_shipping_total) || @errors.include?(:invalid_shipping_total)%>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
+                <% elsif @order_details.nil? %>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control"/>
+                <% else %>
+                <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control" value="<%= @order_details[:shipping_total]%>"/>
+                <% end %>
+              </div>
               </form>
             </h6>
           </div>

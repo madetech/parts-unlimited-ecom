@@ -9,4 +9,12 @@ describe SaveOrderDetails do
       expect(order.shipping_total).to eq('24.00')
     end
   end
+
+  it 'returns an error for missing shipping total' do
+    response = use_case.execute(order_details: { shipping_total: '' })
+    expect(response).to eq(
+      successful: false,
+      errors: [:missing_shipping_total, :invalid_shipping_total]
+    )
+  end
 end
