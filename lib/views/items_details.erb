@@ -59,7 +59,6 @@
               
               <label for="shipping-total">Shipping Total<span class="text-danger">*</span></label>
                 <% if @order_errors.include?(:missing_shipping_total) || @order_errors.include?(:invalid_shipping_total)%>
-                <% puts 'working' %>
                 <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
                 <% elsif @order.nil? %>
                 <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control"/>
