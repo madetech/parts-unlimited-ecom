@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "9292:9292"
+    privileged: true
