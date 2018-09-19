@@ -10,19 +10,15 @@ class SaveItemsDetails
     errors = validation
 
     return { successful: false, errors: errors } unless errors.empty?
-
     item_builder = Builder::Item.new
     item_builder.from(
-      id: @item_details[:id],
+      product_code: @item_details[:product_code],
       name: @item_details[:name],
       price: @item_details[:price],
       quantity: @item_details[:quantity]
     )
 
-    all_items = @items_gateway.all
-    all_items.push(item_builder.build)
-
-    @items_gateway.save(all_items)
+    @items_gateway.save(item_builder.build)
 
     { successful: true, errors: [] }
   end

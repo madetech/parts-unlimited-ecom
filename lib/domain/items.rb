@@ -2,6 +2,7 @@
 
 class Item
   attr_accessor :id,
+                :product_code,
                 :name,
                 :price,
                 :quantity,

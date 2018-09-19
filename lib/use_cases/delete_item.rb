@@ -5,8 +5,8 @@ class DeleteItem
     @items_gateway = items_gateway
   end
 
-  def execute(index:)
-    @items_gateway.delete_item_at(index)
+  def execute(id:)
+    @items_gateway.delete_item(id)
     {}
   end
 end

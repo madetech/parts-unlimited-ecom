@@ -7,6 +7,7 @@ module Builder
     def build
       item = ::Item.new
       item.id = item_details[:id]
+      item.product_code = item_details[:product_code]
       item.name = item_details[:name]
       item.price = item_details[:price]
       item.quantity = item_details[:quantity]
@@ -14,9 +15,10 @@ module Builder
       item
     end
 
-    def from(id:, name:, price:, quantity:)
+    def from(id: nil, product_code:, name:, price:, quantity:)
       @item_details = {
         id: id,
+        product_code: product_code,
         name: name,
         price: price,
         quantity: quantity

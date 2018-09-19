@@ -15,7 +15,7 @@ class ViewSummary
 
   def customer
     return nil if @customer_gateway.all.empty?
-    customer = @customer_gateway.all.first
+    customer = @customer_gateway.all.last
     { shipping_customer_name: customer.shipping_customer_name,
       shipping_address_line1: customer.shipping_address_line1,
       shipping_address_line2: customer.shipping_address_line2,
@@ -39,6 +39,7 @@ class ViewSummary
     items.map! do |item|
       {
         id: item.id,
+        product_code: item.product_code,
         name: item.name,
         price: item.price,
         quantity: item.quantity,

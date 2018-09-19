@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-require 'json'
-
 class FileCustomerGateway
-  FILE_PATH = "#{__dir__}/../tmp/file.json"
+
+  def initialize(database:)
+    @database = database
+  end
 
   def all
-    return [] unless File.exist?(FILE_PATH)
-    File.open(FILE_PATH, 'r') do |file|
+    customers = @database[:customer].all
+    return [] if customers.empty?
+    customers.map do |customer|
       customer_builder = Builder::Customer.new
-      customer_builder.customer_details = JSON.parse(file.read, symbolize_names: true)
-      [customer_builder.build]
+      customer_builder.customer_details = customer
+      customer_builder.build
     end
   end
 
@@ -34,12 +36,6 @@ class FileCustomerGateway
       billing_email_address: customer.billing_email_address
     }
 
-    File.open(FILE_PATH, 'w') do |file|
-      file.write(serialised_customer.to_json)
-    end
-  end
-
-  def delete_all
-    File.unlink(FILE_PATH) if File.exist?(FILE_PATH)
+    @database[:customer].insert(serialised_customer)
   end
 end

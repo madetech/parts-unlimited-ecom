@@ -12,4 +12,8 @@ serve: down build
 
 .PHONY: test
 test: down build
-		docker-compose run --rm web bundle exec guard
+		docker-compose run --rm web ./bin/run_tests.sh
+
+.PHONY: test-ci
+test-ci: down build
+		docker-compose run --rm web ./bin/run_ci_tests.sh
