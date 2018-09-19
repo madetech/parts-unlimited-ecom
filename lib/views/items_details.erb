@@ -67,11 +67,11 @@
             <div class="form-row">
               <div class="p-1 pl-3 width-14">
                 <% if @errors.include?(:missing_id)%>
-                <input type="text" id="id" name="id" class="form-control is-invalid" placeholder="ID"/>
+                <input autofocus type="text" id="id" name="id" class="form-control is-invalid" placeholder="ID"/>
                 <% elsif @item_row.nil? %>
-                <input type="text" id="id" name="id" class="form-control" placeholder="ID"/>
+                <input autofocus type="text" id="id" name="id" class="form-control" placeholder="ID"/>
                 <% else %>
-                <input type="text" id="id" name="id" class="form-control" value="<%= @item_row[:id]%>"/>
+                <input autofocus type="text" id="id" name="id" class="form-control" value="<%= @item_row[:id]%>"/>
                 <% end %>
               </div>
               <div class="p-1 width-45">
