@@ -9,6 +9,7 @@ require 'use_cases/calculate_total_cost'
 require 'use_cases/save_customer_details'
 require 'use_cases/save_items_details'
 require 'use_cases/view_summary'
+require 'use_cases/duplicate_address'
 require 'builder/customer'
 require 'builder/items'
 require 'domain/address'
@@ -26,7 +27,9 @@ before do
   @items_gateway = FileItemsGateway.new
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
   @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost)
+  @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
   @delete_item = DeleteItem.new(items_gateway: @items_gateway)
+  @duplicate_address = DuplicateAddress.new(save_customer_details: @save_customer_details)
 end
 
 get '/' do
@@ -59,6 +62,7 @@ post '/customer-details' do
   billing_postcode = params.fetch(:billing_postcode)
   billing_phone_number = params.fetch(:billing_phone_number)
   billing_email_address = params.fetch(:billing_email_address)
+  use_same_address = params[:same_address]
   @customer_details = {
     shipping_customer_name: shipping_customer_name,
     shipping_address_line1: shipping_address_line1,
@@ -77,8 +81,8 @@ post '/customer-details' do
     billing_phone_number: billing_phone_number,
     billing_email_address: billing_email_address
   }
-  save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
-  response = save_customer_details.execute(customer_details: @customer_details)
+  response = @duplicate_address.execute(customer_details: @customer_details) if use_same_address
+  response = @save_customer_details.execute(customer_details: @customer_details) unless use_same_address
   @errors = response[:errors]
   return redirect '/items-details' if response[:successful]
 
