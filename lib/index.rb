@@ -124,6 +124,7 @@ post '/items-details' do
   @net_total = summary[:net_total]
   @vat = summary[:vat_total]
   @items = summary[:items]
+  @order = summary[:order]
   @errors = response[:errors]
   @order_errors = []
 
