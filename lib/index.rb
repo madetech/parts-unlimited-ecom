@@ -10,6 +10,7 @@ require 'use_cases/calculate_total_cost'
 require 'use_cases/calculate_vat'
 require 'use_cases/save_customer_details'
 require 'use_cases/save_items_details'
+require 'use_cases/save_order_details'
 require 'use_cases/view_summary'
 require 'use_cases/duplicate_address'
 require 'builder/customer'
@@ -43,6 +44,7 @@ end
 
 get '/' do
   @items_gateway.delete_all
+  @order_gateway.delete_all
   redirect '/customer-details'
 end
 
@@ -132,10 +134,11 @@ post '/item-delete/:id' do
 end
 
 post '/shipping-total' do
-  shipping_total = params.fetch(:shipping_total)
+  shipping_total = params[:shipping_total]
   @order_details = { shipping_total: shipping_total }
+  save_order_details = SaveOrderDetails.new(order_gateway: @order_gateway)
   save_order_details.execute(order_details: @order_details)
-  redirect 'items-details'
+  redirect '/order-summary'
 end
 
 get '/order-summary' do
