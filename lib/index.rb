@@ -120,6 +120,7 @@ post '/items-details' do
   response = save_items_details.execute(item_details: @item_row)
   summary = @view_summary.execute
   @net_total = summary[:net_total]
+  @vat = summary[:vat_total]
   @items = summary[:items]
   @errors = response[:errors]
 
@@ -137,8 +138,9 @@ post '/shipping-total' do
   shipping_total = params[:shipping_total]
   @order_details = { shipping_total: shipping_total }
   save_order_details = SaveOrderDetails.new(order_gateway: @order_gateway)
-  save_order_details.execute(order_details: @order_details)
-  redirect '/order-summary'
+  response = save_order_details.execute(order_details: @order_details)
+  redirect '/order-summary' if response[:successful]
+  redirect 'items-details'
 end
 
 get '/order-summary' do
