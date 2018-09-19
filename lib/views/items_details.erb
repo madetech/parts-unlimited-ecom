@@ -101,6 +101,21 @@
               </div>
             </div>
           </form>
+              <% pretty_error_message_conversion = { 
+                missing_id: 'Please enter a product ID', 
+                missing_name: 'Please enter a product name',
+                missing_price: 'Please enter a price',
+                missing_quantity: 'Please enter a quantity',
+                invalid_price: 'Please enter a valid price',
+                invalid_quantity: 'Please enter a quantity'
+                } %>
+              <p class="text-danger pl-2">
+              <% @errors.each do |error|%>
+                <% next if error == :invalid_quantity && @errors.include?(:missing_quantity) %>
+                <% next if error == :invalid_price && @errors.include?(:missing_price) %>
+                *<%= pretty_error_message_conversion[error] %><br/>
+              <% end %>
+              </p>
         </div>
         <div class="col-1"></div>
       </div>
