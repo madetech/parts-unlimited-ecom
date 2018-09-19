@@ -15,6 +15,8 @@ require 'builder/items'
 require 'domain/address'
 require 'domain/customer'
 require 'domain/items'
+require 'database_admin/postgres'
+require_relative '../db/migrator'
 
 helpers do
   def first_error?(error)
@@ -23,8 +25,9 @@ helpers do
 end
 
 before do
-  @customer_gateway = FileCustomerGateway.new
-  @items_gateway = FileItemsGateway.new
+  database = DatabaseAdministrator::Postgres.new.existing_database
+  @customer_gateway = FileCustomerGateway.new(database: database)
+  @items_gateway = FileItemsGateway.new(database: database)
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
   @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost)
   @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
@@ -34,7 +37,6 @@ end
 
 get '/' do
   @items_gateway.delete_all
-  @customer_gateway.delete_all
   redirect '/customer-details'
 end
 
@@ -99,11 +101,11 @@ end
 
 post '/items-details' do
   price = params.fetch(:price)
-  id = params.fetch(:id)
+  product_code = params.fetch(:product_code)
   name = params.fetch(:name)
   quantity = params.fetch(:quantity)
 
-  @item_row = { id: id, name: name, price: price, quantity: quantity }
+  @item_row = { product_code: product_code, name: name, price: price, quantity: quantity }
 
   save_items_details = SaveItemsDetails.new(items_gateway: @items_gateway)
   response = save_items_details.execute(item_details: @item_row)
@@ -116,9 +118,9 @@ post '/items-details' do
   erb :items_details
 end
 
-post '/item-delete/:index' do
-  index = params[:index]
-  @delete_item.execute(index: index.to_i)
+post '/item-delete/:id' do
+  id = params[:id]
+  @delete_item.execute(id: id.to_i)
   redirect '/items-details'
 end
 

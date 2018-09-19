@@ -3,6 +3,7 @@
 Capybara.app = Sinatra::Application
 
 describe 'customer details', type: :feature do
+  database = DatabaseAdministrator::Postgres.new.existing_database
   def visit_customer_details_page_in_form
     visit '/customer-details'
     within('form') do
@@ -12,7 +13,6 @@ describe 'customer details', type: :feature do
   end
 
   it 'autofocuses on an incorrect field' do
-    FileCustomerGateway.new.delete_all
     visit_customer_details_page_in_form do
       fill_in('shipping_address_line1', with: '1 Fake Street')
       fill_in('shipping_address_line2', with: 'Fake Flat')

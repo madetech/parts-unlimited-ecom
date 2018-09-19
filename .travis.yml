@@ -1,5 +1,8 @@
+sudo: required
+services:
+  - docker
 language: ruby
-script: bundle exec rspec
+script: make test-ci
 rvm:
 - 2.5.1
 notifications:

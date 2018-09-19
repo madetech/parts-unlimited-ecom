@@ -3,48 +3,41 @@
 require 'json'
 
 class FileItemsGateway
-  FILE_PATH = "#{__dir__}/../tmp/items.json"
+  def initialize(database:)
+    @database = database
+  end
 
   def all
-    return [] unless File.exist?(FILE_PATH)
-    items = File.open(FILE_PATH, 'r') do |file|
-      JSON.parse(file.read, symbolize_names: true)
-    end
+    items = @database[:item].all
+    return [] if items.empty?
 
-    items.map! do |item_details|
+    items.map do |item_details|
       item_builder = Builder::Item.new
       item_builder.from(
         id: item_details[:id],
+        product_code: item_details[:product_code],
         name: item_details[:name],
         price: item_details[:price],
         quantity: item_details[:quantity]
       )
       item_builder.build
     end
-    items
   end
 
-  def save(items)
-    items.map! do |item|
-      {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity
-      }
-    end
-    File.open(FILE_PATH, 'w') do |file|
-      file.write(items.to_json)
-    end
+  def save(item)
+    @database[:item].insert({
+      product_code: item.product_code,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity
+    })
   end
 
   def delete_all
-    File.unlink(FILE_PATH) if File.exist?(FILE_PATH)
+    @database[:item].delete
   end
 
-  def delete_item_at(index)
-    items = all
-    items.delete_at(index)
-    save(items)
+  def delete_item(id)
+    @database[:item].where(id: id).delete
   end
 end

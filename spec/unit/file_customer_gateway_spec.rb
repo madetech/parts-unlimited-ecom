@@ -1,15 +1,8 @@
 # frozen_string_literal: true
 
 describe FileCustomerGateway do
-  let(:file_customer_gateway) { described_class.new }
-
-  before do
-    file_customer_gateway.delete_all
-  end
-
-  it 'can get no customers' do
-    expect(file_customer_gateway.all).to eq([])
-  end
+  database = DatabaseAdministrator::Postgres.new.existing_database
+  let(:file_customer_gateway) { described_class.new(database: database) }
 
   it 'can get a customer' do
     customer_builder = Builder::Customer.new
@@ -33,7 +26,7 @@ describe FileCustomerGateway do
     customer = customer_builder.build
     file_customer_gateway.save(customer)
 
-    file_customer_gateway.all.first.tap do |customer|
+    file_customer_gateway.all.last.tap do |customer|
       expect(customer.shipping_customer_name).to eq('Bob')
       expect(customer.shipping_address_line1).to eq('1 Fake Street')
       expect(customer.shipping_address_line2).to eq('Fake Flat')

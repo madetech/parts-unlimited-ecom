@@ -17,8 +17,14 @@ require 'rspec'
 require 'capybara/rspec'
 require 'capybara/dsl'
 require 'index'
+require 'database_admin/postgres'
+require_relative '../db/migrator'
 
 RSpec.configure do |config|
+  database = DatabaseAdministrator::Postgres.new.fresh_database
+  
+  config.before(:all) { @database = database }
+
   config.filter_run_when_matching :focus
   config.run_all_when_everything_filtered
 

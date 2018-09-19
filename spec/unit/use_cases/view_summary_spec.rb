@@ -13,15 +13,16 @@ describe ViewSummary do
   end
 
   class Stub
-    def initialize(id, name, price, quantity, total)
-      @total = total
+    def initialize(id, product_code, name, price, quantity, total)
       @id = id
+      @total = total
+      @product_code = product_code
       @price = price
       @quantity = quantity
       @name = name
     end
 
-    attr_reader :id, :name, :price, :quantity, :total
+    attr_reader :id, :product_code, :name, :price, :quantity, :total
   end
 
   class CustomerStub
@@ -121,12 +122,13 @@ describe ViewSummary do
   it 'returns items' do
     view_summary = described_class.new(
       customer_gateway: spy,
-      items_gateway: double(all: [Stub.new('113', 'Billy Bob', '12', '2', '24')]),
+      items_gateway: double(all: [Stub.new(1, '113', 'Billy Bob', '12', '2', '24')]),
       calculate_total_cost: spy
     )
     response = view_summary.execute
     expected_items = [{
-      id: '113',
+      id: 1,
+      product_code: '113',
       name: 'Billy Bob',
       price: '12',
       quantity: '2',
