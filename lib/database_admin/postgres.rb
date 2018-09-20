@@ -16,7 +16,7 @@ module DatabaseAdministrator
     end
 
     def existing_database
-      database = Sequel.connect('postgresql://admin:secretpassword@postgres/orders')
+      database = Sequel.connect(ENV['DB_URL'])
 
       @migrator.migrate(database)
       database
