@@ -41,10 +41,10 @@
               <tr>
                 <td class="width-15"><%= item[:product_code] %></td>
                 <td class="width-45"><%= item[:name] %></td>
-                <td class="width-10" ><%= item[:price] %></td>
-                <td class="width-10" ><%= item[:quantity] %></td>
-                <td class="width-10" ><%= item[:total] %></td>
-                <td class="width-10" >
+                <td class="width-10"><%= item[:price] %></td>
+                <td class="width-11"><%= item[:quantity] %></td>
+                <td class="width-7"><%= item[:total] %></td>
+                <td class="width-12">
                   <form method="POST" action="/item-delete/<%= item[:id] %>"><button class="btn btn-danger pt-1 pb-1 float_right">Delete</button></form>
                 </td>
               </tr>
@@ -64,7 +64,7 @@
           <% end %>
           <form method="POST" action="/items-details" id="new-row">
             <div class="form-row">
-              <div class="p-1 pl-3 width-14">
+              <div class="p-1 pl-3 width-16" >
                 <% if @errors.include?(:missing_product_code)%>
                 <input autofocus type="text" id="product-code" name="product_code" class="form-control is-invalid" placeholder="Product Code"/>
                 <% elsif @item_row.nil? %>
@@ -73,7 +73,7 @@
                 <input autofocus type="text" id="product-code" name="product_code" class="form-control" value="<%= @item_row[:product_code]%>"/>
                 <% end %>
               </div>
-              <div class="p-1 width-45">
+              <div class="p-1 width-43">
                 <%if @errors.include?(:missing_name)%>
                 <input type="text" id="name" name="name" class="form-control is-invalid" placeholder="Name"/>
                 <% elsif @item_row.nil? %>
@@ -108,29 +108,26 @@
         </div>
         <div class="col-1"></div>
       </div>
-
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10 pt-3">
           <div class="float-right p-3">
             <h6> Net Total: £<%= @net_total %> </h6>
             <h6> VAT: £<%= @vat %> </h6>
-            
-              <form method="POST" action="/shipping-total" id="shipping-total">
+            <form method="POST" action="/shipping-total" id="shipping-total">
               <div class="form-group row">
                 <label for="shipping-total" class="col-sm-6 col-form-label col-form-label-sm"><h6>Shipping Total<span class="text-danger">*</span>:</h6></label>
                 <div class="col-sm-6 pl-0">
                   <% if @order_errors.include?(:missing_shipping_total) || @order_errors.include?(:invalid_shipping_total)%>
-                  <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
+                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
                   <% elsif @order.nil? %>
-                  <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control"/>
+                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control"/>
                   <% else %>
-                  <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control" value="<%= @order[:shipping_total]%>"/>
+                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control" value="<%= @order[:shipping_total]%>"/>
                   <% end %>
                 </div>
               </div>
-              </form>
-            
+            </form>
           </div>
         </div>
         <div class="col-1"></div>
