@@ -188,7 +188,7 @@ describe 'place order' do
       expect(items[1][:quantity]).to eq('10')
 
       expect(response).to include(net_total: '218.00')
-      expect(response).to include(vat_total: '403939.20')
+      expect(response).to include(vat_total: '43.60')
     end
   end
 
@@ -283,11 +283,11 @@ describe 'place order' do
 
     context 'calculating the vat total of total items' do
       it 'returns the vat total of items' do
-        ordered_item1 = { id: '23', name: 'Bats', price: '10.00', quantity: '10' }
-        ordered_item2 = { id: '24', name: 'Bets', price: '12.20', quantity: '1' }
-        ordered_item3 = { id: '33', name: 'Bits', price: '15.00', quantity: '5' }
-        ordered_item4 = { id: '34', name: 'Bots', price: '4.00', quantity: '1' }
-        ordered_item5 = { id: '43', name: 'Buts', price: '10.00', quantity: '4' }
+        ordered_item1 = { product_code: '23', name: 'Bats', price: '10.00', quantity: '10' }
+        ordered_item2 = { product_code: '24', name: 'Bets', price: '12.20', quantity: '1' }
+        ordered_item3 = { product_code: '33', name: 'Bits', price: '15.00', quantity: '5' }
+        ordered_item4 = { product_code: '34', name: 'Bots', price: '4.00', quantity: '1' }
+        ordered_item5 = { product_code: '43', name: 'Buts', price: '10.00', quantity: '4' }
 
         save_items_details.execute(item_details: ordered_item1)
         save_items_details.execute(item_details: ordered_item2)
