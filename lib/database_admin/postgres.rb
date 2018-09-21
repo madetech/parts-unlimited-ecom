@@ -16,7 +16,7 @@ module DatabaseAdministrator
     end
 
     def existing_database
-      database = Sequel.connect(ENV['DB_URL'])
+      database = Sequel.connect(ENV['DATABASE_URL'])
 
       @migrator.migrate(database)
       database
