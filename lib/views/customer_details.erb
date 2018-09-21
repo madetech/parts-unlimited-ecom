@@ -159,7 +159,7 @@
                 class="form-control"
                 id="shipping-email"
                 name="shipping_email_address"
-                pattern="^[^@\W]+?@\w+?\..+?$"
+              
                 value="<%= @customer_details[:shipping_email_address] %>"
                 />
               <%if @errors.include?(:missing_shipping_email_address)%>
