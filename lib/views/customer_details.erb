@@ -121,7 +121,6 @@
                 class="form-control"
                 id="shipping-postcode"
                 name="shipping_postcode"
-                pattern="^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$"
                 value="<%= @customer_details[:shipping_postcode] %>"
                 />
               <%if @errors.include?(:missing_shipping_postcode)%>
@@ -140,7 +139,6 @@
                 class="form-control"
                 id="shipping-phone-number"
                 name="shipping_phone_number"
-                pattern="^\A[+]?\d{11,12}\z$"
                 value="<%= @customer_details[:shipping_phone_number] %>"
                 />
               <%if @errors.include?(:missing_shipping_phone_number)%>
@@ -152,14 +150,13 @@
             <div class="form-group">
               <label for="shipping-email">Email<span class="text-danger">*</span></label>
               <input
-                <%if first_error?(:missing_shipping_email_address) || first_error?(:missing_shipping_email_address)%>
+                <%if first_error?(:missing_shipping_email_address) || first_error?(:invalid_shipping_email_address)%>
                 autofocus
                 <%end%>
                 type="text"
                 class="form-control"
                 id="shipping-email"
                 name="shipping_email_address"
-              
                 value="<%= @customer_details[:shipping_email_address] %>"
                 />
               <%if @errors.include?(:missing_shipping_email_address)%>
@@ -266,7 +263,6 @@
                   class="form-control"
                   id="billing-postcode"
                   name="billing_postcode"
-                  pattern="^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$"
                   value="<%= @customer_details[:billing_postcode] %>"
                   />
                 <%if @errors.include?(:missing_billing_postcode)%>
@@ -285,7 +281,6 @@
                   class="form-control"
                   id="billing-phone-number"
                   name="billing_phone_number"
-                  pattern="^\A[+]?\d{11,12}\z$"
                   value="<%= @customer_details[:billing_phone_number] %>"
                   />
                 <%if @errors.include?(:missing_billing_phone_number)%>
@@ -304,7 +299,6 @@
                   class="form-control"
                   id="billing-email"
                   name="billing_email_address"
-                  pattern="^[^@\W]+?@\w+?\..+?$"
                   value="<%= @customer_details[:billing_email_address] %>"
                   />
                 <%if @errors.include?(:missing_billing_email_address)%>
