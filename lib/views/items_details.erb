@@ -25,6 +25,11 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10 pt-5">
+          <% if @errors.include?(:no_items) %>
+            <div class="alert alert-danger" role="alert">
+                No items have been added.
+            </div>
+          <% end %>
           <table class="table table-striped border rounded bg-white">
             <thead>
               <tr>
