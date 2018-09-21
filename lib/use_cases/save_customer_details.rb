@@ -7,7 +7,8 @@ class SaveCustomerDetails
 
   def execute(customer_details:)
     @customer_details = customer_details
-
+    remove_whitespace
+    
     errors = validate_details
 
     return { successful: false, errors: errors } unless errors.empty?
@@ -21,6 +22,12 @@ class SaveCustomerDetails
   end
 
   private
+
+  def remove_whitespace
+    @customer_details.each_key do |key| 
+      @customer_details[key] = @customer_details[key].strip
+    end
+  end
 
   def validate_details
     errors = check_for_missing_fields

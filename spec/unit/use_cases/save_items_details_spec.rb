@@ -47,4 +47,12 @@ describe SaveItemsDetails do
       errors: [:invalid_quantity]
     )
   end
+
+  it 'returns an error if only whitespace is there' do
+    response = use_case.execute(item_details: { product_code: '  ', name: 'Bobs', price: '12.00', quantity: '2' })
+    expect(response).to eq(
+      successful: false,
+      errors: [:missing_product_code]
+    )
+  end
 end

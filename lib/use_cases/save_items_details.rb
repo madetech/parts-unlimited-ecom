@@ -7,6 +7,7 @@ class SaveItemsDetails
 
   def execute(item_details:)
     @item_details = item_details
+    remove_whitespace
     errors = validation
 
     return { successful: false, errors: errors } unless errors.empty?
@@ -24,6 +25,12 @@ class SaveItemsDetails
   end
 
   private
+
+  def remove_whitespace
+    @item_details.each_key do |key| 
+      @item_details[key] = @item_details[key].strip
+    end
+  end
 
   def validation
     errors = missing_fields

@@ -341,4 +341,28 @@ describe SaveCustomerDetails do
       expect(response).to eq(successful: false, errors: [:invalid_billing_email_address])
     end
   end
+
+  context 'it will remove whitespace' do
+    it 'returns missing input if only filled with whitespace ' do
+      response = use_case.execute(customer_details: {
+                                    shipping_customer_name: '    ',
+                                    shipping_address_line1: '13 South Street   ',
+                                    shipping_address_line2: 'Borough   ',
+                                    shipping_city: 'Fake',
+                                    shipping_county: '   Manchester',
+                                    shipping_postcode: 'N21 0SW',
+                                    shipping_phone_number: '   07912456672',
+                                    shipping_email_address: 'harry@gmail.com',
+                                    billing_customer_name: 'Harry',
+                                    billing_address_line1: '13 South Street',
+                                    billing_address_line2: 'Borough',
+                                    billing_city: 'Fake',
+                                    billing_county: 'Manchester',
+                                    billing_postcode: 'N21 0SW',
+                                    billing_phone_number: '07912456672',
+                                    billing_email_address: 'harry@gmail.com'
+                                  })
+      expect(response).to eq(successful: false, errors: [:missing_shipping_customer_name])
+    end
+  end
 end
