@@ -66,7 +66,7 @@
                 <table class="table table-striped border rounded bg-white">
                   <thead>
                     <tr>
-                      <th scope="col">ID</th>
+                      <th scope="col">Product Code</th>
                       <th scope="col">Name</th>
                       <th scope="col">Price</th>
                       <th scope="col">Quantity</th>
@@ -76,9 +76,9 @@
                   <tbody>
                     <% @items.each do |item| %>
                     <tr>
-                      <td style="width: 10%;"><%= item[:id] %></td>
-                      <td style="width: 40%;" ><%= item[:name] %></td>
-                      <td style="width: 40%;" ><%= item[:price] %></td>
+                      <td style="width: 15%;"><%= item[:product_code] %></td>
+                      <td style="width: 35%;" ><%= item[:name] %></td>
+                      <td style="width: 30%;" ><%= item[:price] %></td>
                       <td style="width: 10%;" ><%= item[:quantity] %></td>
                       <td style="width: 10%;" ><%= item[:total] %></td>
                     </tr>
