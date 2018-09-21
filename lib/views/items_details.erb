@@ -131,12 +131,16 @@
               <div class="form-group row">
                 <label for="shipping-total" class="col-sm-6 col-form-label col-form-label-sm"><h6>Shipping Total<span class="text-danger">*</span>:</h6></label>
                 <div class="col-sm-6 pl-0">
-                  <% if @order_errors.include?(:missing_shipping_total) || @order_errors.include?(:invalid_shipping_total)%>
-                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
+                  <% if @order_errors.include?(:missing_shipping_total) %>
+                    <input type="text" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
+                    <p class="text-danger">Please enter a shipping total</p>
+                  <% elsif  @order_errors.include?(:invalid_shipping_total) %>
+                    <input type="text" id="shipping-total" name="shipping_total" class="form-control is-invalid"/>
+                    <p class="text-danger">This shipping total is invalid</p>
                   <% elsif @order.nil? %>
-                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control"/>
+                    <input type="text" id="shipping-total" name="shipping_total" class="form-control"/>
                   <% else %>
-                    <input type="text" pattern="^[0-9]+(\.[0-9]+)?$" id="shipping-total" name="shipping_total" class="form-control" value="<%= @order[:shipping_total]%>"/>
+                    <input type="text" id="shipping-total" name="shipping_total" class="form-control" value="<%= @order[:shipping_total]%>"/>
                   <% end %>
                 </div>
               </div>
