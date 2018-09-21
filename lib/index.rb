@@ -30,9 +30,9 @@ helpers do
 end
 
 before do
-  database = DatabaseAdministrator::Postgres.new.existing_database
-  @customer_gateway = FileCustomerGateway.new(database: database)
-  @items_gateway = FileItemsGateway.new(database: database)
+  @database = DatabaseAdministrator::Postgres.new.existing_database
+  @customer_gateway = FileCustomerGateway.new(database: @database)
+  @items_gateway = FileItemsGateway.new(database: @database)
   @order_gateway = FileOrderGateway.new
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
   @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
@@ -40,6 +40,10 @@ before do
   @view_summary = ViewSummary.new(customer_gateway: @customer_gateway, items_gateway: @items_gateway, calculate_total_cost: @calculate_total_cost, calculate_vat: @calculate_vat, order_gateway: @order_gateway)
   @delete_item = DeleteItem.new(items_gateway: @items_gateway)
   @duplicate_address = DuplicateAddress.new(save_customer_details: @save_customer_details)
+end
+
+after do
+  @database.disconnect
 end
 
 get '/' do
