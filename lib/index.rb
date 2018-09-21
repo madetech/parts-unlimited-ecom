@@ -51,6 +51,7 @@ after do
 end
 
 get '/' do
+  @customer_gateway.delete_all
   @items_gateway.delete_all
   @order_gateway.delete_all
   redirect '/customer-details'
