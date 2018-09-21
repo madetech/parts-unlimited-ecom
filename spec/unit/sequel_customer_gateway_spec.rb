@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-describe FileCustomerGateway do
+describe SequelCustomerGateway do
   database = DatabaseAdministrator::Postgres.new.existing_database
-  let(:file_customer_gateway) { described_class.new(database: database) }
+  let(:sequel_customer_gateway) { described_class.new(database: database) }
 
   it 'can get a customer' do
     customer_builder = Builder::Customer.new
@@ -24,9 +24,9 @@ describe FileCustomerGateway do
     customer_builder.billing_phone_number = '01982371'
     customer_builder.billing_email_address = 'fake2@gmail.com'
     customer = customer_builder.build
-    file_customer_gateway.save(customer)
+    sequel_customer_gateway.save(customer)
 
-    file_customer_gateway.all.last.tap do |customer|
+    sequel_customer_gateway.all.last.tap do |customer|
       expect(customer.shipping_customer_name).to eq('Bob')
       expect(customer.shipping_address_line1).to eq('1 Fake Street')
       expect(customer.shipping_address_line2).to eq('Fake Flat')

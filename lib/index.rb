@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require 'file_customer_gateway'
-require 'file_items_gateway'
+require 'sequel_customer_gateway'
+require 'sequel_items_gateway'
 require 'file_order_gateway'
 require 'use_cases/delete_item'
 require 'use_cases/calculate_total_cost'
@@ -35,8 +35,8 @@ end
 
 before do
   @database = DatabaseAdministrator::Postgres.new.existing_database
-  @customer_gateway = FileCustomerGateway.new(database: @database)
-  @items_gateway = FileItemsGateway.new(database: @database)
+  @customer_gateway = SequelCustomerGateway.new(database: @database)
+  @items_gateway = SequelItemsGateway.new(database: @database)
   @order_gateway = FileOrderGateway.new
   @calculate_total_cost = CalculateTotalCost.new(items_gateway: @items_gateway)
   @save_customer_details = SaveCustomerDetails.new(customer_gateway: @customer_gateway)
