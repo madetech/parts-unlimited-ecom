@@ -2,7 +2,7 @@
 
 require 'json'
 
-class FileItemsGateway
+class SequelItemsGateway
   def initialize(database:)
     @database = database
   end

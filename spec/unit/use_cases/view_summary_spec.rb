@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 describe ViewSummary do
-  let(:file_customer_gateway) { spy }
-  let(:file_items_gateway) { spy }
+  let(:sequel_customer_gateway) { spy }
+  let(:sequel_items_gateway) { spy }
   let(:calculate_total_cost) { spy }
   let(:calculate_vat) { spy }
   let(:file_order_gateway) { spy }
   let(:view_summary) do
     described_class.new(
-      customer_gateway: file_customer_gateway,
-      items_gateway: file_items_gateway,
+      customer_gateway: sequel_customer_gateway,
+      items_gateway: sequel_items_gateway,
       calculate_total_cost: calculate_total_cost,
       calculate_vat: calculate_vat,
       order_gateway: file_order_gateway

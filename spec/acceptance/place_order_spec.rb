@@ -4,8 +4,8 @@ require 'json'
 
 describe 'place order' do
   database = DatabaseAdministrator::Postgres.new.existing_database
-  let(:customer_gateway) { FileCustomerGateway.new(database: database) }
-  let(:items_gateway) { FileItemsGateway.new(database: database) }
+  let(:customer_gateway) { SequelCustomerGateway.new(database: database) }
+  let(:items_gateway) { SequelItemsGateway.new(database: database) }
   let(:order_gateway) { FileOrderGateway.new }
   let(:save_customer_details) { SaveCustomerDetails.new(customer_gateway: customer_gateway) }
   let(:save_items_details) { SaveItemsDetails.new(items_gateway: items_gateway) }

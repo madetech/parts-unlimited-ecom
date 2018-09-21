@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FileCustomerGateway
+class SequelCustomerGateway
 
   def initialize(database:)
     @database = database

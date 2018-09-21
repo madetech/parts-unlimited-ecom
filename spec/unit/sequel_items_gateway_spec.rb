@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-describe FileItemsGateway do
+describe SequelItemsGateway do
   database = DatabaseAdministrator::Postgres.new.existing_database
-  let(:file_items_gateway) { described_class.new(database: database) }
+  let(:sequel_items_gateway) { described_class.new(database: database) }
 
   before do
-    file_items_gateway.delete_all
+    sequel_items_gateway.delete_all
   end
 
   it 'can get no items' do
-    expect(file_items_gateway.all).to eq([])
+    expect(sequel_items_gateway.all).to eq([])
   end
 
   it 'can get a row of item details' do
@@ -18,9 +18,9 @@ describe FileItemsGateway do
 
     item = item_builder.build
 
-    file_items_gateway.save(item)
+    sequel_items_gateway.save(item)
 
-    file_items_gateway.all.first.tap do |items|
+    sequel_items_gateway.all.first.tap do |items|
       expect(items.id).not_to be nil
       expect(items.product_code).to eq('108')
       expect(items.name).to eq('Jeremy')
@@ -42,17 +42,17 @@ describe FileItemsGateway do
     item3_builder.from(product_code: '8', name: 'Jeremy', price: '18.00', quantity: '5')
     item3 = item3_builder.build
 
-    file_items_gateway.save(item1)
-    file_items_gateway.save(item2)
-    file_items_gateway.save(item3)
+    sequel_items_gateway.save(item1)
+    sequel_items_gateway.save(item2)
+    sequel_items_gateway.save(item3)
 
-    expect(file_items_gateway.all.count).to eq(3)
+    expect(sequel_items_gateway.all.count).to eq(3)
 
-    file_items_gateway.delete_item(file_items_gateway.all.first.id)
-    file_items_gateway.delete_item(file_items_gateway.all.first.id)
-    expect(file_items_gateway.all.count).to eq(1)
+    sequel_items_gateway.delete_item(sequel_items_gateway.all.first.id)
+    sequel_items_gateway.delete_item(sequel_items_gateway.all.first.id)
+    expect(sequel_items_gateway.all.count).to eq(1)
 
-    file_items_gateway.all.tap do |items|
+    sequel_items_gateway.all.tap do |items|
       expect(items[0].product_code).to eq('8')
       expect(items[0].name).to eq('Jeremy')
       expect(items[0].price).to eq('18.00')
