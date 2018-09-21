@@ -38,4 +38,9 @@ class FileCustomerGateway
 
     @database[:customer].insert(serialised_customer)
   end
+
+  def delete_all
+    @database[:customer].delete
+  end
+  
 end
