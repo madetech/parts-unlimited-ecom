@@ -27,6 +27,10 @@ helpers do
   def first_error?(error)
     @errors[0] == error
   end
+
+  def second_error?(error)
+    @errors[1] == error
+  end
 end
 
 before do
